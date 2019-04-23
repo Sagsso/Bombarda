@@ -1,5 +1,2 @@
-# Interactive3DApp
-
-Interactive3DApp made with Three.js
-
-Mini game with players, controls, 3DSound, Collisions, Cameras, Mesh.
+# Bombarda
+Game inspired in Bomberman using the library Threejs for the course Computer Graphics.
