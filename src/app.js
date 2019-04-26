@@ -28,6 +28,8 @@ players = {
     p4: null
 }
 
+
+
 collidableList = [];
 /**
  * Function to start program running a
@@ -124,23 +126,51 @@ function initScene() {
     // scene.add(new THREE.SpotLightHelper(spotLight, 1));
 
     //Piso
-    //Texturas
-    var textAldea = new THREE.TextureLoader().load('assets/textures/tablon.jpg');
     //Materiales
-    var Aldea = new THREE.MeshPhongMaterial({ color: 0x28244b, wireframe: false, });
-    // Aldea.map.wrapS = THREE.MirroredRepeatWrapping;
-    // Aldea.map.wrapT = THREE.MirroredRepeatWrapping;
-    // Aldea.map.repeat.set(3, 3);
+    var material = new THREE.MeshPhongMaterial({ color: 0x28244b, wireframe: false, });
+    // material.map.wrapS = THREE.MirroredRepeatWrapping;
+    // material.map.wrapT = THREE.MirroredRepeatWrapping;
+    // material.map.repeat.set(3, 3);
 
-    var geometria = new THREE.BoxGeometry(3000, 1, 3000, 10, 10);
+    var geometria = new THREE.BoxGeometry(3000, 400, 3000);
 
-    plane = new THREE.Mesh(geometria, Aldea);
-    plane.position.z = 0;
+    plane = new THREE.Mesh(geometria, material);
+    plane.position.y = -200;
     plane.receiveShadow = true;
     scene.add(plane);
     collidableList.push(plane);
 
+    // borde izquierdo
+    var mtlBordes = new THREE.MeshPhongMaterial({color:0XDAA520})
+    var geoBordes = new THREE.BoxGeometry(50, 50, 3000);
+    var bordes = new THREE.Mesh(geoBordes,mtlBordes);
+    bordes.position.x=-1475;
+    bordes.position.y=25;
+    collidableList.push(bordes);
+    scene.add(bordes);
+    
+    //borde derecho
+    var bordeDer = bordes.clone();
+    bordeDer.position.x = 1475;
+    collidableList.push(bordeDer);
+    scene.add(bordeDer);
 
+      // borde front
+      var mtlBordesFB = new THREE.MeshPhongMaterial({color:0XDAA520})
+      var geoBordesFB = new THREE.BoxGeometry(2900, 50, 50);
+      var bordesFB = new THREE.Mesh(geoBordesFB,mtlBordesFB);
+      bordesFB.position.z=1475;
+      bordesFB.position.y=25;
+      collidableList.push(bordesFB);
+      scene.add(bordesFB);
+  
+      //borde back
+      var bordeBack = bordesFB.clone();
+      bordeBack.position.z = -1475;
+      collidableList.push(bordeBack);
+      scene.add(bordeBack);
+
+    //Plataforma central
     var matPlatform = new THREE.MeshPhongMaterial({ color: 0xffeaa7, wireframe: false, });
     // Aldea.map.wrapS = THREE.MirroredRepeatWrapping;
     // Aldea.map.wrapT = THREE.MirroredRepeatWrapping;

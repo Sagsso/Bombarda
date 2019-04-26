@@ -29,9 +29,9 @@ class Player {
             var object1 = new THREE.Mesh(geometry, material);
             object1.castShadow = true;
             object1.receiveShadow = true;
-            object1.position.x = 1475;
+            object1.position.x = 1425;
             object1.position.y = 25;
-            object1.position.z = 1475;
+            object1.position.z = 1425;
 
             console.log(object1.position);
             this._element = object1;

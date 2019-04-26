@@ -1,6 +1,6 @@
 class Control {
     //myControl = new Control("w","d","s","a");
-    constructor(up, right, down, left, jump) {
+    constructor(up, right, down, left, jump, placeBomb) {
         this.initControls();
         this.up = up || "w";
         this.right = right || "d";
@@ -8,10 +8,12 @@ class Control {
         this.left = left || "a";
         this.velocity = 10;
         this.jump = jump || " ";
+        this.placeBomb = placeBomb || "e";
 
         this.isInAir = false;
         this.isFalling = false;
         this.isJumping = false;
+        this.availableBomb = true;
         this.element = null;
 
         this.initListeners();
@@ -56,6 +58,13 @@ class Control {
     get jump() {
         return this._jump.key;
     }
+    set placeBomb(key) {
+        this._placeBomb.key = key;
+    }
+
+    get placeBomb() {
+        return this._placeBomb.key;
+    }
 
     initControls() {
         this._up = { key: "", isPressed: false };
@@ -63,12 +72,15 @@ class Control {
         this._down = { key: "", isPressed: false };
         this._left = { key: "", isPressed: false };
         this._jump = { key: "", isPressed: false };
+        this._placeBomb = { key: "", isPressed: false };
     }
 
     initListeners() {
 
 
     }
+
+    
 
     update(vx, vy, m, jf) {
         this.vx = vx;
@@ -87,6 +99,32 @@ class Control {
         }
         if (this._left.isPressed) {
             this.element.position.x -= this.velocity;
+        }
+        if (this._placeBomb.isPressed && !this.isInAir) {
+
+            let activarBombas = () => this.availableBomb=true;
+
+            if(this.availableBomb){
+            let geometry = new THREE.SphereGeometry(25, 32, 32);
+            let material = new THREE.MeshPhongMaterial({
+                color: 0x000000,
+                wireframe: false
+            });
+            var bomb = new THREE.Mesh(geometry, material);
+            bomb.castShadow = true;
+            bomb.receiveShadow = true;
+
+            bomb.position.x = this.element.position.x;
+            bomb.position.y = this.element.position.y;
+            bomb.position.z = this.element.position.z;
+
+            scene.add(bomb);
+            collidableList.push(bomb);
+            this.availableBomb = false;
+            setTimeout(activarBombas,4000);
+            }
+
+            
         }
         if (this._jump.isPressed) {
             console.log(`is Jumping: ${this.isJumping} and is In Air: ${this.isInAir}`)
@@ -112,6 +150,9 @@ class Control {
     pressJump() {
         this._jump.isPressed = true;
     }
+    pressBomb() {
+        this._placeBomb.isPressed = true;
+    }
 
     releaseUp() {
         this._up.isPressed = false;
@@ -127,6 +168,9 @@ class Control {
     }
     releaseJump() {
         this._jump.isPressed = false;
+    }
+    releasePlaceBomb() {
+        this._placeBomb.isPressed = false;
     }
 
 }
@@ -204,6 +248,9 @@ document.onkeydown = (e) => {
             case elControl.jump:
                 elControl.pressJump();
                 break;
+            case elControl.placeBomb:
+                elControl.pressBomb();
+                break;
         }
 
     }
@@ -236,8 +283,16 @@ document.onkeyup = (e) => {
             case elControl.jump:
                 elControl.releaseJump();
                 break;
+            case elControl.placeBomb:
+                elControl.releasePlaceBomb();
+                break;
         }
     }
 
 
 }
+
+// function bombToCollidableList(bomb){
+//     this.collidableList.push(bomb);
+//     console.log('añadida')
+// }
