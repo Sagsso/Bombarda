@@ -1,5 +1,6 @@
 class CollidableBox {
-    constructor(mesh, boundingRadius) {
+    constructor(player, mesh, boundingRadius) {
+        this.player = player;
         this.mesh = mesh;
         this.collidableRadius = boundingRadius;
         this.isFalling = { state: false, acc: 0 };
@@ -32,7 +33,19 @@ class CollidableBox {
             if (intersections.length > 0) {
                 let distance = intersections[0].distance;
                 if (distance < this.collidableRadius) {
-                    callback();
+                    switch (intersections[0].object.name) {
+                        case "Velocity2X":
+                            console.log(this.player.vx);
+                            collidableList.pop(intersections[0].object);
+                            scene.remove(intersections[0].object);
+                            this.player.vx += 10;
+                            break;
+                        case "thanos":
+                            this.mesh.material.color = new THREE.Color("0xffffff")
+                            break;
+                        default:
+                            callback();
+                    }
                 }
             }
         }

@@ -64,12 +64,18 @@ function initScene() {
     canvas.container.appendChild(renderer.domElement);
 
     //Init player with controls
-    players.p1 = new Player("P1", null, new Control(), { label: true });
+    players.p1 = new Player("P1", null, new Control(), 25, { label: true });
     players.p1.play(scene);
+    players.p2 = new Player("P2", null, new Control("t", "h", "g", "f", "b", "y"), 25, { label: true });
+    players.p2.play(scene);
+    players.p3 = new Player("P3", null, new Control("i", "l", "k", "j", "m", "o"), 25, { label: true });
+    players.p3.play(scene);
+    players.p4 = new Player("P4", null, new Control("8", "6", "5", "4", "2", "9"), 25, { label: true });
+    players.p4.play(scene);
 
     //positioning cameras
     cameras.default.cam = new THREE.PerspectiveCamera(45, canvas.container.clientWidth / canvas.container.clientHeight, 0.1, 10000);
-    cameras.default.cam.position.set(0, 3000, 3000);
+    cameras.default.cam.position.set(0, 1550, 2800);
     cameras.default.cam.lookAt(new THREE.Vector3(0, 0, 0));
 
     //camera2
@@ -141,34 +147,34 @@ function initScene() {
     collidableList.push(plane);
 
     // borde izquierdo
-    var mtlBordes = new THREE.MeshPhongMaterial({color:0XDAA520})
+    var mtlBordes = new THREE.MeshPhongMaterial({ color: 0XDAA520 })
     var geoBordes = new THREE.BoxGeometry(50, 50, 3000);
-    var bordes = new THREE.Mesh(geoBordes,mtlBordes);
-    bordes.position.x=-1475;
-    bordes.position.y=25;
+    var bordes = new THREE.Mesh(geoBordes, mtlBordes);
+    bordes.position.x = -1475;
+    bordes.position.y = 25;
     collidableList.push(bordes);
     scene.add(bordes);
-    
+
     //borde derecho
     var bordeDer = bordes.clone();
     bordeDer.position.x = 1475;
     collidableList.push(bordeDer);
     scene.add(bordeDer);
 
-      // borde front
-      var mtlBordesFB = new THREE.MeshPhongMaterial({color:0XDAA520})
-      var geoBordesFB = new THREE.BoxGeometry(2900, 50, 50);
-      var bordesFB = new THREE.Mesh(geoBordesFB,mtlBordesFB);
-      bordesFB.position.z=1475;
-      bordesFB.position.y=25;
-      collidableList.push(bordesFB);
-      scene.add(bordesFB);
-  
-      //borde back
-      var bordeBack = bordesFB.clone();
-      bordeBack.position.z = -1475;
-      collidableList.push(bordeBack);
-      scene.add(bordeBack);
+    // borde front
+    var mtlBordesFB = new THREE.MeshPhongMaterial({ color: 0XDAA520 })
+    var geoBordesFB = new THREE.BoxGeometry(2900, 50, 50);
+    var bordesFB = new THREE.Mesh(geoBordesFB, mtlBordesFB);
+    bordesFB.position.z = 1475;
+    bordesFB.position.y = 25;
+    collidableList.push(bordesFB);
+    scene.add(bordesFB);
+
+    //borde back
+    var bordeBack = bordesFB.clone();
+    bordeBack.position.z = -1475;
+    collidableList.push(bordeBack);
+    scene.add(bordeBack);
 
     //Plataforma central
     var matPlatform = new THREE.MeshPhongMaterial({ color: 0xffeaa7, wireframe: false, });
@@ -186,6 +192,16 @@ function initScene() {
     scene.add(platform);
     collidableList.push(platform);
 
+
+
+    var powerup = new THREE.Mesh(
+        new THREE.BoxGeometry(50, 50, 50),
+        new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: false })
+    );
+    powerup.position.set(50, 25, 1000);
+    powerup.name = "Velocity2X";
+    scene.add(powerup);
+    collidableList.push(powerup);
     // Big
     // Texturas
     // var textAldea2 = new THREE.TextureLoader().load('assets/textures/tablon.jpg');

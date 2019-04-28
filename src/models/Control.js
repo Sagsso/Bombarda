@@ -80,10 +80,10 @@ class Control {
 
     }
 
-    
+
 
     update(vx, vy, m, jf) {
-        this.vx = vx;
+        this.velocity = vx;
         this.vy = vy;
         this.m = m;
         this.jumpForce = jf;
@@ -102,29 +102,43 @@ class Control {
         }
         if (this._placeBomb.isPressed && !this.isInAir) {
 
-            let activarBombas = () => this.availableBomb=true;
+            let activarBombas = () => this.availableBomb = true;
 
-            if(this.availableBomb){
-            let geometry = new THREE.SphereGeometry(25, 32, 32);
-            let material = new THREE.MeshPhongMaterial({
-                color: 0x000000,
-                wireframe: false
-            });
-            var bomb = new THREE.Mesh(geometry, material);
-            bomb.castShadow = true;
-            bomb.receiveShadow = true;
+            if (this.availableBomb) {
+                let geometry = new THREE.SphereGeometry(25, 32, 32);
+                let material = new THREE.MeshPhongMaterial({
+                    color: 0x000000,
+                    wireframe: false,
+                    transparent: false
+                });
+                var bomb = new THREE.Mesh(geometry, material);
+                bomb.castShadow = true;
+                bomb.receiveShadow = true;
 
-            bomb.position.x = this.element.position.x;
-            bomb.position.y = this.element.position.y;
-            bomb.position.z = this.element.position.z;
+                bomb.position.x = this.element.position.x;
+                bomb.position.y = this.element.position.y;
+                bomb.position.z = this.element.position.z;
 
-            scene.add(bomb);
-            collidableList.push(bomb);
-            this.availableBomb = false;
-            setTimeout(activarBombas,4000);
+
+
+                boxBomb.position.x = this.element.position.x;
+                boxBomb.position.y = this.element.position.y;
+                boxBomb.position.z = this.element.position.z;
+                var group = new THREE.Group();
+                group.add(bomb);
+                group.add(boxBomb);
+
+                scene.add(group);
+                collidableList.push(boxBomb);
+                console.log(collidableList);
+                // scene.add(boxBomb);
+                // scene.add(bomb);
+                this.availableBomb = false;
+                setTimeout(activarBombas, 4000);
+
             }
 
-            
+
         }
         if (this._jump.isPressed) {
             console.log(`is Jumping: ${this.isJumping} and is In Air: ${this.isInAir}`)
@@ -193,39 +207,40 @@ document.onkeydown = (e) => {
     //cámara default
     if (e.key == "1") {
         console.log('Camera default puesta');
+        console.log(cameras.default.cam.position);
         resetIsCurrent(cameras);//Aquí todas las cámaras tiene isCurren = false;
         cameras.default.isCurrent = true;//Aquí la default isCurrent
         cameras.current.cam = cameras.default.cam;
         cameraControl = new THREE.OrbitControls(cameras.current.cam, renderer.domElement);
     }
-    if (e.key == "2") {
-        console.log('Camera camera2 puesta');
-        cameras.current.cam = cameras.camera2.cam;//Aquí todas las cámaras tiene isCurren = false;
-        resetIsCurrent(cameras);//Aquí la cámara 2 es la incurrent
-        cameras.camera2.isCurrent = true;
-        cameraControl = new THREE.OrbitControls(cameras.current.cam, renderer.domElement);
-    }
-    if (e.key == "3") {
-        console.log('Camera camera3 puesta');
-        cameras.current.cam = cameras.camera3.cam;//Aquí todas las cámaras tiene isCurren = false;
-        resetIsCurrent(cameras);//Aquí la cámara 3 es la incurrent
-        cameras.camera3.isCurrent = true;
-        cameraControl = new THREE.OrbitControls(cameras.current.cam, renderer.domElement);
-    }
-    if (e.key == "4") {
-        console.log('Camera camera4 puesta');
-        cameras.current.cam = cameras.camera4.cam;//Aquí todas las cámaras tiene isCurren = false;
-        resetIsCurrent(cameras);//Aquí la cámara 3 es la incurrent
-        cameras.camera4.isCurrent = true;
-        cameraControl = new THREE.OrbitControls(cameras.current.cam, renderer.domElement);
-    }
-    if (e.key == "5") {
-        console.log('Camera camera5 puesta');
-        cameras.current.cam = cameras.camera5.cam;//Aquí todas las cámaras tiene isCurren = false;
-        resetIsCurrent(cameras);//Aquí la cámara 3 es la incurrent
-        cameras.camera5.isCurrent = true;
-        cameraControl = new THREE.OrbitControls(cameras.current.cam, renderer.domElement);
-    }
+    // if (e.key == "2") {
+    //     console.log('Camera camera2 puesta');
+    //     cameras.current.cam = cameras.camera2.cam;//Aquí todas las cámaras tiene isCurren = false;
+    //     resetIsCurrent(cameras);//Aquí la cámara 2 es la incurrent
+    //     cameras.camera2.isCurrent = true;
+    //     cameraControl = new THREE.OrbitControls(cameras.current.cam, renderer.domElement);
+    // }
+    // if (e.key == "3") {
+    //     console.log('Camera camera3 puesta');
+    //     cameras.current.cam = cameras.camera3.cam;//Aquí todas las cámaras tiene isCurren = false;
+    //     resetIsCurrent(cameras);//Aquí la cámara 3 es la incurrent
+    //     cameras.camera3.isCurrent = true;
+    //     cameraControl = new THREE.OrbitControls(cameras.current.cam, renderer.domElement);
+    // }
+    // if (e.key == "4") {
+    //     console.log('Camera camera4 puesta');
+    //     cameras.current.cam = cameras.camera4.cam;//Aquí todas las cámaras tiene isCurren = false;
+    //     resetIsCurrent(cameras);//Aquí la cámara 3 es la incurrent
+    //     cameras.camera4.isCurrent = true;
+    //     cameraControl = new THREE.OrbitControls(cameras.current.cam, renderer.domElement);
+    // }
+    // if (e.key == "5") {
+    //     console.log('Camera camera5 puesta');
+    //     cameras.current.cam = cameras.camera5.cam;//Aquí todas las cámaras tiene isCurren = false;
+    //     resetIsCurrent(cameras);//Aquí la cámara 3 es la incurrent
+    //     cameras.camera5.isCurrent = true;
+    //     cameraControl = new THREE.OrbitControls(cameras.current.cam, renderer.domElement);
+    // }
 
     for (let i = 0; i < Object.keys(players).length; i++) {
         let key = Object.keys(players)[i];
