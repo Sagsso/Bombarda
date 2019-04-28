@@ -119,7 +119,9 @@ class Control {
                 bomb.position.y = this.element.position.y;
                 bomb.position.z = this.element.position.z;
 
-
+                var boxBombMTL = new THREE.MeshPhongMaterial({ transparent: true, opacity: 0.2 });
+                var boxBombGEO = new THREE.BoxGeometry(50, 50, 50);
+                var boxBomb = new THREE.Mesh(boxBombGEO, boxBombMTL);
 
                 boxBomb.position.x = this.element.position.x;
                 boxBomb.position.y = this.element.position.y;

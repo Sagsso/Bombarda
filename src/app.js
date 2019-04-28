@@ -31,6 +31,7 @@ players = {
 
 
 collidableList = [];
+powerUpList = [];
 /**
  * Function to start program running a
  * WebGL Application trouhg ThreeJS
@@ -202,6 +203,7 @@ function initScene() {
     powerup.name = "Velocity2X";
     scene.add(powerup);
     collidableList.push(powerup);
+    console.log(powerUpList);
     // Big
     // Texturas
     // var textAldea2 = new THREE.TextureLoader().load('assets/textures/tablon.jpg');

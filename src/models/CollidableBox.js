@@ -20,6 +20,7 @@ class CollidableBox {
         collidableRay.ray.origin.copy(origin);
 
         let intersections = collidableRay.intersectObjects(collidableList);
+        let intersectPowerUps = collidableRay.intersectObjects(powerUpList);
 
         if (verticalColliding) {
             if (intersections.length > 0) {
@@ -35,16 +36,21 @@ class CollidableBox {
                 if (distance < this.collidableRadius) {
                     switch (intersections[0].object.name) {
                         case "Velocity2X":
-                            console.log(this.player.vx);
-                            collidableList.pop(intersections[0].object);
+                            console.log(collidableList);
+                            let pos = collidableList.indexOf(intersections[0].object);
+                            console.log(pos);
+                            collidableList.splice(pos, 1);
                             scene.remove(intersections[0].object);
-                            this.player.vx += 10;
+                            console.log("removido")
+                            console.log(collidableList);
+                            this.player.vx += 5;
                             break;
                         case "thanos":
                             this.mesh.material.color = new THREE.Color("0xffffff")
                             break;
                         default:
                             callback();
+                            break;
                     }
                 }
             }

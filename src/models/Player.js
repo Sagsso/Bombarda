@@ -69,7 +69,7 @@ class Player {
                 }
             }
 
-            console.log(object1.position);
+            // console.log(object1.position);
             this._element = object1;
         }
         this.control.element = this._element;
@@ -97,8 +97,8 @@ class Player {
     }
 
     play(scene) {
-        console.log('Jugador');
-        console.log(this);
+        // console.log('Jugador');
+        // console.log(this);
         this.collidableBox = new CollidableBox(this, this._element, 25);
         scene.add(this.element);
     }
