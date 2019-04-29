@@ -104,6 +104,11 @@ class Control {
 
             let sumarBombas = () => this.capacityBombs += 1;
             let activarBombas = () => this.availableBomb = true;
+            let boom = () => {
+                var pos = collidableList.indexOf(group);
+                collidableList.splice(pos, 1);
+                scene.remove(group);
+            }
 
             if (this.capacityBombs > 0 && this.availableBomb) {
                 let geometry = new THREE.SphereGeometry(25, 32, 32);
@@ -120,7 +125,7 @@ class Control {
                 bomb.position.y = this.element.position.y;
                 bomb.position.z = this.element.position.z;
 
-                var boxBombMTL = new THREE.MeshPhongMaterial({ transparent: true, opacity: 0.2 });
+                var boxBombMTL = new THREE.MeshPhongMaterial({ transparent: true, opacity: 0 });
                 var boxBombGEO = new THREE.BoxGeometry(50, 50, 50);
                 var boxBomb = new THREE.Mesh(boxBombGEO, boxBombMTL);
 
@@ -143,9 +148,10 @@ class Control {
                 console.log(this.capacityBombs);
                 // this.availableBomb = false;
                 setTimeout(sumarBombas, 4000);
+                setTimeout(boom, 4000);
                 setTimeout(activarBombas, 500);
-
             }
+
 
 
         }
