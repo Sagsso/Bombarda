@@ -12,7 +12,7 @@ class CollidableBox {
         this.collidableRadius = mesh.geometry.boundingSphere.radius;
     }
 
-    collide(normal, callback, verticalColliding = false) {
+    collide(normal, callback, verticalColliding = false, controls) {
         let collidableRay = new THREE.Raycaster();
         collidableRay.ray.direction.set(normal.x, normal.y, normal.z);
 
@@ -36,14 +36,21 @@ class CollidableBox {
                 if (distance < this.collidableRadius) {
                     switch (intersections[0].object.name) {
                         case "Velocity2X":
-                            console.log(collidableList);
-                            let pos = collidableList.indexOf(intersections[0].object);
-                            console.log(pos);
+                            // console.log(collidableList);
+                            var pos = collidableList.indexOf(intersections[0].object);
+                            // console.log(pos);
                             collidableList.splice(pos, 1);
                             scene.remove(intersections[0].object);
-                            console.log("removido")
-                            console.log(collidableList);
+                            // console.log("removido")
+                            // console.log(collidableList);
                             this.player.vx += 5;
+                            break;
+                        case "Bomb+":
+                            var pos = collidableList.indexOf(intersections[0].object);
+                            collidableList.splice(pos, 1);
+                            scene.remove(intersections[0].object);
+                            controls.capacityBombs += 1;
+                            console.log(controls.capacityBombs);
                             break;
                         case "thanos":
                             this.mesh.material.color = new THREE.Color("0xffffff")
@@ -61,27 +68,27 @@ class CollidableBox {
         let callback = () => {
             this.mesh.position.x -= controls.velocity;
         }
-        this.collide({ x: 1, y: 0, z: 0 }, callback);
+        this.collide({ x: 1, y: 0, z: 0 }, callback, false, controls);
     }
 
     collideRight(controls) {
         let callback = () => {
             this.mesh.position.x += controls.velocity;
         }
-        this.collide({ x: -1, y: 0, z: 0 }, callback);
+        this.collide({ x: -1, y: 0, z: 0 }, callback, false, controls);
     }
     collideFront(controls) {
         let callback = () => {
             this.mesh.position.z -= controls.velocity;
         }
-        this.collide({ x: 0, y: 0, z: 1 }, callback);
+        this.collide({ x: 0, y: 0, z: 1 }, callback, false, controls);
     }
 
     collideBack(controls) {
         let callback = () => {
             this.mesh.position.z += controls.velocity;
         }
-        this.collide({ x: 0, y: 0, z: -1 }, callback);
+        this.collide({ x: 0, y: 0, z: -1 }, callback, false, controls);
     }
 
     collideBottom(control) {

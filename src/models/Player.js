@@ -5,7 +5,6 @@ class Player {
         this.element = element;
         this.label = this.getLabel();
         this.radius = radius;
-
         this.vy = 0;
         this.vx = 10;
         this.m = 2;

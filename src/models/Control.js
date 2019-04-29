@@ -9,7 +9,7 @@ class Control {
         this.velocity = 10;
         this.jump = jump || " ";
         this.placeBomb = placeBomb || "e";
-
+        this.capacityBombs = 1;
         this.isInAir = false;
         this.isFalling = false;
         this.isJumping = false;
@@ -102,9 +102,10 @@ class Control {
         }
         if (this._placeBomb.isPressed && !this.isInAir) {
 
+            let sumarBombas = () => this.capacityBombs += 1;
             let activarBombas = () => this.availableBomb = true;
 
-            if (this.availableBomb) {
+            if (this.capacityBombs > 0 && this.availableBomb) {
                 let geometry = new THREE.SphereGeometry(25, 32, 32);
                 let material = new THREE.MeshPhongMaterial({
                     color: 0x000000,
@@ -132,11 +133,17 @@ class Control {
 
                 scene.add(group);
                 collidableList.push(boxBomb);
-                console.log(collidableList);
+                // console.log(collidableList);
                 // scene.add(boxBomb);
                 // scene.add(bomb);
+                console.log('Me llamaron?')
+                console.log(this.capacityBombs);
+                this.capacityBombs -= 1;
                 this.availableBomb = false;
-                setTimeout(activarBombas, 4000);
+                console.log(this.capacityBombs);
+                // this.availableBomb = false;
+                setTimeout(sumarBombas, 4000);
+                setTimeout(activarBombas, 500);
 
             }
 
