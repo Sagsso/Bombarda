@@ -1,6 +1,5 @@
 class CollidableBox {
-    constructor(player, mesh, boundingRadius) {
-        this.player = player;
+    constructor(mesh, boundingRadius) {
         this.mesh = mesh;
         this.collidableRadius = boundingRadius;
         this.isFalling = { state: false, acc: 0 };
@@ -12,7 +11,7 @@ class CollidableBox {
         this.collidableRadius = mesh.geometry.boundingSphere.radius;
     }
 
-    collide(normal, callback, verticalColliding = false, controls) {
+    collide(normal, callback, verticalColliding = false, player) {
         let collidableRay = new THREE.Raycaster();
         collidableRay.ray.direction.set(normal.x, normal.y, normal.z);
 
@@ -20,7 +19,7 @@ class CollidableBox {
         collidableRay.ray.origin.copy(origin);
 
         let intersections = collidableRay.intersectObjects(collidableList);
-        let intersectPowerUps = collidableRay.intersectObjects(powerUpList);
+        // let intersectPowerUps = collidableRay.intersectObjects(powerUpList);
 
         if (verticalColliding) {
             if (intersections.length > 0) {
@@ -43,14 +42,14 @@ class CollidableBox {
                             scene.remove(intersections[0].object);
                             // console.log("removido")
                             // console.log(collidableList);
-                            this.player.vx += 5;
+                            player.vx += 5;
                             break;
                         case "Bomb+":
                             var pos = collidableList.indexOf(intersections[0].object);
                             collidableList.splice(pos, 1);
                             scene.remove(intersections[0].object);
-                            controls.capacityBombs += 1;
-                            console.log(controls.capacityBombs);
+                            player.control.capacityBombs += 1;
+                            console.log(player.control.capacityBombs);
                             break;
                         case "thanos":
                             this.mesh.material.color = new THREE.Color("0xffffff")
@@ -64,34 +63,34 @@ class CollidableBox {
         }
 
     }
-    collideLeft(controls) {
+    collideLeft(player) {
         let callback = () => {
-            this.mesh.position.x -= controls.velocity;
+            this.mesh.position.x -= player.control.velocity;
         }
-        this.collide({ x: 1, y: 0, z: 0 }, callback, false, controls);
+        this.collide({ x: 1, y: 0, z: 0 }, callback, false, player);
     }
 
-    collideRight(controls) {
+    collideRight(player) {
         let callback = () => {
-            this.mesh.position.x += controls.velocity;
+            this.mesh.position.x += player.control.velocity;
         }
-        this.collide({ x: -1, y: 0, z: 0 }, callback, false, controls);
+        this.collide({ x: -1, y: 0, z: 0 }, callback, false, player);
     }
-    collideFront(controls) {
+    collideFront(player) {
         let callback = () => {
-            this.mesh.position.z -= controls.velocity;
+            this.mesh.position.z -= player.control.velocity;
         }
-        this.collide({ x: 0, y: 0, z: 1 }, callback, false, controls);
-    }
-
-    collideBack(controls) {
-        let callback = () => {
-            this.mesh.position.z += controls.velocity;
-        }
-        this.collide({ x: 0, y: 0, z: -1 }, callback, false, controls);
+        this.collide({ x: 0, y: 0, z: 1 }, callback, false, player);
     }
 
-    collideBottom(control) {
+    collideBack(player) {
+        let callback = () => {
+            this.mesh.position.z += player.control.velocity;
+        }
+        this.collide({ x: 0, y: 0, z: -1 }, callback, false, player);
+    }
+
+    collideBottom(player) {
 
         let callback = (intersections) => {
             let distance = intersections[0].distance;
@@ -102,13 +101,13 @@ class CollidableBox {
                 this.mesh.position.y -= 1 * this.isFalling.acc;
                 //console.log("in air")
 
-                control.isInAir = true;
+                player.control.isInAir = true;
 
             }
             if (distance <= this.collidableRadius + 1) { //over the floor
                 //console.log("over the floor")
-                control.isJumping = false;
-                control.isInAir = false;
+                player.control.isJumping = false;
+                player.control.isInAir = false;
                 this.isFalling.state = false;
                 this.isFalling.acc = 0;
                 if (distance < this.collidableRadius) {
@@ -130,11 +129,11 @@ class CollidableBox {
         this.collide({ x: 0, y: -1, z: 0 }, callback, true);
     }
 
-    update(controls) {
-        this.collideLeft(controls);
-        this.collideRight(controls);
-        this.collideFront(controls);
-        this.collideBack(controls);
-        this.collideBottom(controls);
+    update(player) {
+        this.collideLeft(player);
+        this.collideRight(player);
+        this.collideFront(player);
+        this.collideBack(player);
+        this.collideBottom(player);
     }
 }

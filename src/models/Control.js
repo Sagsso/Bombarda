@@ -150,6 +150,7 @@ class Control {
                 setTimeout(sumarBombas, 4000);
                 setTimeout(boom, 4000);
                 setTimeout(activarBombas, 500);
+                // var collidableBoom = new CollidableBox();
             }
 
 

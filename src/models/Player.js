@@ -5,6 +5,7 @@ class Player {
         this.element = element;
         this.label = this.getLabel();
         this.radius = radius;
+        this.bombRadius = 2;
         this.vy = 0;
         this.vx = 10;
         this.m = 2;
@@ -78,6 +79,9 @@ class Player {
     get element() {
         return this._element;
     }
+    // get control() {
+    //     return this._control;
+    // }
 
 
     updateControls() {
@@ -98,7 +102,7 @@ class Player {
     play(scene) {
         // console.log('Jugador');
         // console.log(this);
-        this.collidableBox = new CollidableBox(this, this._element, 25);
+        this.collidableBox = new CollidableBox(this._element, 25);
         scene.add(this.element);
     }
 

@@ -428,7 +428,7 @@ function updateScene() {
     for (const player of Object.keys(players)) {
         if (players[player] != null) {
             players[player].updateControls();
-            players[player].collidableBox.update(players[player].control);
+            players[player].collidableBox.update(players[player]);
         }
     }
 
