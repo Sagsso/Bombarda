@@ -30,6 +30,7 @@ players = {
 
 
 
+collidableDestructible = [];
 collidableList = [];
 powerUpList = [];
 /**
@@ -66,12 +67,16 @@ function initScene() {
 
     //Init player with controls
     players.p1 = new Player("P1", null, new Control(), 25, { label: true });
+    players.p1.control.player = players.p1;
     players.p1.play(scene);
     players.p2 = new Player("P2", null, new Control("t", "h", "g", "f", "b", "y"), 25, { label: true });
+    players.p2.control.player = players.p2;
     players.p2.play(scene);
     players.p3 = new Player("P3", null, new Control("i", "l", "k", "j", "m", "o"), 25, { label: true });
+    players.p3.control.player = players.p3;
     players.p3.play(scene);
     players.p4 = new Player("P4", null, new Control("8", "6", "5", "4", "2", "9"), 25, { label: true });
+    players.p4.control.player = players.p4;
     players.p4.play(scene);
 
     //positioning cameras
@@ -228,6 +233,7 @@ function initScene() {
                     block.position.set(inicioX, 25, inicioZ);
                     scene.add(block);
                     collidableList.push(block);
+                    collidableDestructible.push(block);
                     inicioX += 50;
                     break;
                 case 0:

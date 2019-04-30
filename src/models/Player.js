@@ -5,7 +5,9 @@ class Player {
         this.element = element;
         this.label = this.getLabel();
         this.radius = radius;
-        this.bombRadius = 2;
+        this.potenciaBomba = 2;
+        this.vidas = 4;
+        this.score = 0;
         this.vy = 0;
         this.vx = 10;
         this.m = 2;
@@ -31,6 +33,12 @@ class Player {
             var object1 = new THREE.Mesh(geometry, material);
             object1.castShadow = true;
             object1.receiveShadow = true;
+
+            var caja = new THREE.Mesh(
+                new THREE.BoxGeometry(50, 50, 50),
+                new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: false, transparent: true, opacity: 0.0 })
+            );
+
 
             var num = 0;
             var creado = false;
@@ -70,7 +78,15 @@ class Player {
             }
 
             // console.log(object1.position);
+            // object1.name = "Player";
+
+
+            object1.add(caja);
             this._element = object1;
+
+            this._element.name = "Player";
+            collidableDestructible.push(this._element);
+            console.log(this._element.name);
         }
         this.control.element = this._element;
         // collidableList.push(this.control.element);
@@ -85,7 +101,7 @@ class Player {
 
 
     updateControls() {
-        this.control.update(this.vx, this.vy, this.m, 90);
+        this.control.update(this.vx, this.vy, this.m, 90, this.potenciaBomba);
     }
 
     getLabel() {

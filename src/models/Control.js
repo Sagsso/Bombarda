@@ -16,6 +16,8 @@ class Control {
         this.availableBomb = true;
         this.element = null;
 
+        this.player = null;
+
         this.initListeners();
     }
 
@@ -82,7 +84,7 @@ class Control {
 
 
 
-    update(vx, vy, m, jf) {
+    update(vx, vy, m, jf, units) {
         this.velocity = vx;
         this.vy = vy;
         this.m = m;
@@ -105,9 +107,15 @@ class Control {
             let sumarBombas = () => this.capacityBombs += 1;
             let activarBombas = () => this.availableBomb = true;
             let boom = () => {
+                collidableBomb.collideLeft(this.player);
+                collidableBomb.collideRight(this.player);
+                collidableBomb.collideFront(this.player);
+                collidableBomb.collideBack(this.player);
+
                 var pos = collidableList.indexOf(group);
                 collidableList.splice(pos, 1);
                 scene.remove(group);
+
             }
 
             if (this.capacityBombs > 0 && this.availableBomb) {
@@ -143,10 +151,15 @@ class Control {
                 // scene.add(bomb);
                 console.log('Me llamaron?')
                 console.log(this.capacityBombs);
+                console.log(this);
                 this.capacityBombs -= 1;
                 this.availableBomb = false;
                 console.log(this.capacityBombs);
                 // this.availableBomb = false;
+                var collidableBomb = new CollidableBomb(boxBomb, 25, units);
+
+
+
                 setTimeout(sumarBombas, 4000);
                 setTimeout(boom, 4000);
                 setTimeout(activarBombas, 500);
