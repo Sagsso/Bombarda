@@ -6,6 +6,7 @@ class Player {
         this.label = this.getLabel();
         this.radius = radius;
         this.potenciaBomba = 2;
+        this.inmune = false;
         this.vidas = 4;
         this.score = 0;
         this.vy = 0;
@@ -27,7 +28,8 @@ class Player {
             let geometry = new THREE.SphereGeometry(25, 32, 32);
             let material = new THREE.MeshPhongMaterial({
                 color: 0x3498db,
-                wireframe: false
+                wireframe: false,
+                transparent: true
             });
 
             var object1 = new THREE.Mesh(geometry, material);

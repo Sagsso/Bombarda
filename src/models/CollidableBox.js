@@ -11,7 +11,19 @@ class CollidableBox {
         this.collidableRadius = mesh.geometry.boundingSphere.radius;
     }
 
+
     collide(normal, callback, verticalColliding = false, player) {
+        // let animateInmune = (player) => {
+        //     while (player.inmune) {
+        //         if (player.element.material.opacity == 1) {
+        //             console.log('Animating opacity')
+        //             TweenLite.to(player.element.material, 1, { opacity: 0 });
+        //         }
+        //         else if (player.element.material.opacity == 0) {
+        //             TweenLite.to(player.element.material, 1, { opacity: 1 });
+        //         }
+        //     }
+        // }
         let collidableRay = new THREE.Raycaster();
         collidableRay.ray.direction.set(normal.x, normal.y, normal.z);
 
@@ -43,6 +55,11 @@ class CollidableBox {
                             // console.log("removido")
                             // console.log(collidableList);
                             player.vx += 5;
+                            var powerupSound = new Sound(["./assets/songs/powerup.wav"], 15, scene, {
+                                debug: true,
+                                position: { x: 50, y: 0, z: 0 }
+                            });
+                            powerupSound.play();
                             break;
                         case "Bomb+":
                             var pos = collidableList.indexOf(intersections[0].object);
@@ -50,6 +67,37 @@ class CollidableBox {
                             scene.remove(intersections[0].object);
                             player.control.capacityBombs += 1;
                             console.log(player.control.capacityBombs);
+                            var powerupSound = new Sound(["./assets/songs/powerup.wav"], 15, scene, {
+                                debug: true,
+                                position: { x: 50, y: 0, z: 0 }
+                            });
+                            powerupSound.play();
+                            break;
+                        case "Potencia":
+                            var pos = collidableList.indexOf(intersections[0].object);
+                            collidableList.splice(pos, 1);
+                            scene.remove(intersections[0].object);
+                            player.potenciaBomba += 1;
+                            console.log(player.control.capacityBombs);
+                            var powerupSound = new Sound(["./assets/songs/powerup.wav"], 15, scene, {
+                                debug: true,
+                                position: { x: 50, y: 0, z: 0 }
+                            });
+                            powerupSound.play();
+                            break;
+                        case "Capa":
+                            var pos = collidableList.indexOf(intersections[0].object);
+                            collidableList.splice(pos, 1);
+                            scene.remove(intersections[0].object);
+                            player.inmune = true;
+                            console.log(player.control.capacityBombs);
+                            var powerupSound = new Sound(["./assets/songs/powerup.wav"], 15, scene, {
+                                debug: true,
+                                position: { x: 50, y: 0, z: 0 }
+                            });
+                            powerupSound.play();
+                            setTimeout(function () { player.inmune = false }, 10000);
+
                             break;
                         case "thanos":
                             this.mesh.material.color = new THREE.Color("0xffffff")
@@ -135,5 +183,17 @@ class CollidableBox {
         this.collideFront(player);
         this.collideBack(player);
         this.collideBottom(player);
+        if (player.inmune) {
+            if (player.element.material.opacity == 1) {
+                console.log('Animating opacity')
+                TweenLite.to(player.element.material, 0.2, { opacity: 0 });
+            }
+            else if (player.element.material.opacity == 0) {
+                TweenLite.to(player.element.material, 0.2, { opacity: 1 });
+            }
+        }
+        if (!player.inmune && player.element.material.opacity == 0) {
+            player.element.material.opacity = 1;
+        }
     }
 }

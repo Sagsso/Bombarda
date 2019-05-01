@@ -14,9 +14,9 @@ class Sound {
 
         //Additional params 
         let ap = aditionalParams;
-        if("volume" in ap){
+        if ("volume" in ap) {
             this.volume = (ap.volume <= 1) ? ap.volume : 1;
-        }else{
+        } else {
             this.volume = 1;
         }
 
@@ -43,16 +43,16 @@ class Sound {
         this.scene.add(this.mesh);
     }
 
-    play(){
-        this.audio.play().catch(function(e) {
+    play() {
+        this.audio.play().catch(function (e) {
             console.log(e);
         });
     }
 
-    update (element) {
-        var distance = this.position.distanceTo(element.position);
+    // update (element) {
+    //     var distance = this.position.distanceTo(element.position);
 
-        let volume = (distance <= this.radius) ? this.volume * (1 - distance / this.radius) : 0;
-        this.audio.volume = volume;
-    }
+    //     let volume = (distance <= this.radius) ? this.volume * (1 - distance / this.radius) : 0;
+    //     this.audio.volume = volume;
+    // }
 }

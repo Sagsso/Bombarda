@@ -80,12 +80,14 @@ function deleteObjects(intersections, playerOwner) {
         console.log('Explotó Player');
         for (const player of Object.keys(players)) {
             if (players[player].element == intersections[0].object) {
-                players[player].vidas -= 1;
-                players[player].element.position.set(0, 200, 0);
-                playerOwner.score += 50;
-                console.log('Quitó vidas y posicionó');
-                console.log('Puntaje');
-                console.log(`El puntaje de ${playerOwner.name} es ${playerOwner.score}`);
+                if (!players[player].inmune) {
+                    players[player].vidas -= 1;
+                    players[player].element.position.set(0, 200, 0);
+                    playerOwner.score += 50;
+                    console.log('Quitó vidas y posicionó');
+                    console.log('Puntaje');
+                    console.log(`El puntaje de ${playerOwner.name} es ${playerOwner.score}`);
+                }
             }
         }
     } else {

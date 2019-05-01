@@ -119,6 +119,9 @@ class Control {
             }
 
             if (this.capacityBombs > 0 && this.availableBomb) {
+                let x = this.element.position.x;
+                let y = this.element.position.y;
+                let z = this.element.position.z;
                 let geometry = new THREE.SphereGeometry(25, 32, 32);
                 let material = new THREE.MeshPhongMaterial({
                     color: 0x000000,
@@ -129,17 +132,17 @@ class Control {
                 bomb.castShadow = true;
                 bomb.receiveShadow = true;
 
-                bomb.position.x = this.element.position.x;
-                bomb.position.y = this.element.position.y;
-                bomb.position.z = this.element.position.z;
+                bomb.position.x = x;
+                bomb.position.y = y;
+                bomb.position.z = z;
 
                 var boxBombMTL = new THREE.MeshPhongMaterial({ transparent: true, opacity: 0 });
                 var boxBombGEO = new THREE.BoxGeometry(50, 50, 50);
                 var boxBomb = new THREE.Mesh(boxBombGEO, boxBombMTL);
 
-                boxBomb.position.x = this.element.position.x;
-                boxBomb.position.y = this.element.position.y;
-                boxBomb.position.z = this.element.position.z;
+                boxBomb.position.x = x;
+                boxBomb.position.y = y;
+                boxBomb.position.z = z;
                 var group = new THREE.Group();
                 group.add(bomb);
                 group.add(boxBomb);
@@ -157,13 +160,83 @@ class Control {
                 console.log(this.capacityBombs);
                 // this.availableBomb = false;
                 var collidableBomb = new CollidableBomb(boxBomb, 25, units);
+                let renderLights = () => {
+                    for (var i = 1; i <= units; i++) {
+                        // var infiniteTimedLoop = function () {
+                        //     createExplode(x + (50 * i), y, z);
+                        //     createExplode(x - (50 * i), y, z);
+                        //     createExplode(x, y, z + (50 * i));
+                        //     createExplode(x, y, z - (50 * i));
+                        //     console.log('Creadas ' + i);
+                        // }
+                        createExplode(x + (50 * i), y, z);
+                        createExplode(x - (50 * i), y, z);
+                        createExplode(x, y, z + (50 * i));
+                        createExplode(x, y, z - (50 * i));
+                        // console.log(i);
+                        // var count= i;
+                        // setTimeout(function () {
+                        //     createExplode(x + (50 * i), y, z);
+                        //     createExplode(x - (50 * i), y, z);
+                        //     createExplode(x, y, z + (50 * i));
+                        //     createExplode(x, y, z - (50 * i));
+                        //     console.log(i);
+                        // }, timeFrame);
+                        // timeFrame += 200;
+                    }
+                    let bombSound = new Sound(["./assets/songs/Bomb.mp3"], 15, scene, {
+                        debug: true,
+                        position: { x: 50, y: 0, z: 0 }
+                    });
+                    bombSound.play();
 
+                };
 
+                let disappearBoom = (explode) => {
+                    scene.remove(explode);
+                }
 
                 setTimeout(sumarBombas, 4000);
                 setTimeout(boom, 4000);
                 setTimeout(activarBombas, 500);
+                setTimeout(renderLights, 3800);
+
+
                 // var collidableBoom = new CollidableBox();
+
+
+
+                let createExplode = (x, y, z) => {
+                    var c2 = 0xe67e22;
+                    var sphere = new THREE.SphereBufferGeometry(15, 16, 16);
+                    var material = new THREE.MeshBasicMaterial({ color: c2, opacity: 1, transparent: true })
+                    var explode = new THREE.Mesh(sphere, material);
+                    explode.position.x = x;
+                    explode.position.y = y;
+                    explode.position.z = z;
+                    scene.add(explode);
+                    // while (material.opacity != 0) {
+                    //     material.opacity -= 0.1;
+                    // }
+                    TweenLite.to(explode.material, 1, { opacity: 0 });
+                    setTimeout(disappearBoom, 1000, explode);
+                    // return explode;
+                }
+
+                var intensity = 2.5;
+                var distance = 100;
+                var decay = 2.0;
+                var c2 = 0xe67e22;
+                var sphere = new THREE.SphereBufferGeometry(5, 16, 8);
+                var light = new THREE.PointLight(c2, intensity, distance, decay);
+                light.add(new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({ color: c2 })));
+                light.position.x = x;
+                light.position.y = y;
+                light.position.z = z;
+
+
+
+
             }
 
 
@@ -294,6 +367,9 @@ document.onkeydown = (e) => {
                 break;
             case elControl.placeBomb:
                 elControl.pressBomb();
+                break;
+            case "8":
+                backgroundSound.play();
                 break;
         }
 
