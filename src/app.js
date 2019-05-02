@@ -31,8 +31,8 @@ players = {
 
 
 collidableDestructible = [];
+
 collidableList = [];
-powerUpList = [];
 /**
  * Function to start program running a
  * WebGL Application trouhg ThreeJS
@@ -69,15 +69,20 @@ function initScene() {
     players.p1 = new Player("P1", null, new Control(), 25, { label: true });
     players.p1.control.player = players.p1;
     players.p1.play(scene);
+    players.p1.savePosRespawn();
+    console.log(players.p1.position);
     players.p2 = new Player("P2", null, new Control("t", "h", "g", "f", "b", "y"), 25, { label: true });
     players.p2.control.player = players.p2;
     players.p2.play(scene);
+    players.p2.savePosRespawn();
     players.p3 = new Player("P3", null, new Control("i", "l", "k", "j", "m", "o"), 25, { label: true });
     players.p3.control.player = players.p3;
     players.p3.play(scene);
+    players.p3.savePosRespawn();
     players.p4 = new Player("P4", null, new Control("8", "6", "5", "4", "2", "9"), 25, { label: true });
     players.p4.control.player = players.p4;
     players.p4.play(scene);
+    players.p4.savePosRespawn();
 
     //positioning cameras
     cameras.default.cam = new THREE.PerspectiveCamera(45, canvas.container.clientWidth / canvas.container.clientHeight, 0.1, 10000);
@@ -132,7 +137,7 @@ function initScene() {
     spotLight.shadow.camera.near = 500;
     spotLight.shadow.camera.far = 4000;
     spotLight.shadow.camera.fov = 30;
-    scene.add(spotLight);
+    // scene.add(spotLight);
 
     // scene.add(spotLight.target);
     // scene.add(new THREE.SpotLightHelper(spotLight, 1));
@@ -182,6 +187,133 @@ function initScene() {
     collidableList.push(bordeBack);
     scene.add(bordeBack);
 
+    //Modelos
+    //Modelo Snitch
+    var blockSnitch = new THREE.Mesh(
+        new THREE.BoxGeometry(50, 50, 50),
+        new THREE.MeshBasicMaterial({ color: 0xfffce8, wireframe: false, transparent: true, opacity: 0 })
+    );
+    blockSnitch.position.set(0, 25, 750)
+    blockSnitch.name = "Snitch";
+    var snitch = new THREE.Object3D();
+    loadOBJWithMTL("./assets/Models/", "S01.obj", "S01.mtl", (obj) => {
+
+        obj.position.set(0, 0, 9);
+        obj.rotateX(-1.5708)
+        // obj.scale.set(25, 25, 25);
+        obj.castShadow = true;
+        obj.receiveShadow = true;
+        // obj.material.color = 0x0000ff;
+        // obj.rotateY(1.5708)
+        // blockSnitch.add(obj);
+        snitch.copy(obj);
+    })
+    snitch.position.copy(blockSnitch.position);
+    collidableList.push(blockSnitch);
+    blockSnitch.add(snitch);
+    scene.add(blockSnitch);
+
+    //Modelo Velocity2X
+    var blockVelocity2X = new THREE.Mesh(
+        new THREE.BoxGeometry(50, 50, 50),
+        new THREE.MeshBasicMaterial({ color: 0xfffce8, wireframe: false, transparent: true, opacity: 0 })
+    );
+    blockVelocity2X.position.set(50, 25, 750)
+    blockVelocity2X.name = "Velocity2X";
+    var velocity2X = new THREE.Object3D();
+    loadOBJWithMTL("./assets/Models/", "2X.obj", "2X.mtl", (obj) => {
+
+        obj.position.set(0, 0, 9);
+        obj.rotateY(1.5708)
+        // obj.scale.set(25, 25, 25);
+        obj.castShadow = true;
+        obj.receiveShadow = true;
+        // obj.material.color = 0x0000ff;
+        // obj.rotateY(1.5708)
+        // blockVelocity2X.add(obj);
+        velocity2X.copy(obj);
+    })
+    velocity2X.position.copy(blockVelocity2X.position);
+    collidableList.push(blockVelocity2X);
+    blockVelocity2X.add(velocity2X);
+    scene.add(blockVelocity2X);
+
+    //Modelo addBomb
+    blockaddBomb = new THREE.Mesh(
+        new THREE.BoxGeometry(50, 50, 50),
+        new THREE.MeshBasicMaterial({ color: 0xfffce8, wireframe: false, transparent: true, opacity: 0 })
+    );
+    blockaddBomb.position.set(150, 25, 750)
+    blockaddBomb.name = "Bomb+";
+    var addBomb = new THREE.Object3D();
+    loadOBJWithMTL("./assets/Models/", "Bom01.obj", "Bom01.mtl", (obj) => {
+
+        obj.position.set(0, -45, -60);
+        obj.rotateY(1.5708)
+        obj.scale.set(8, 8, 8);
+        obj.castShadow = true;
+        obj.receiveShadow = true;
+        // obj.material.color = 0x0000ff;
+        // obj.rotateY(1.5708)
+        // blockaddBomb.add(obj);
+        addBomb.copy(obj);
+    })
+    addBomb.position.copy(blockaddBomb.position);
+    collidableList.push(blockaddBomb);
+    blockaddBomb.add(addBomb);
+    scene.add(blockaddBomb);
+
+    //Modelo potencia
+    blockpotencia = new THREE.Mesh(
+        new THREE.BoxGeometry(50, 50, 50),
+        new THREE.MeshBasicMaterial({ color: 0xfffce8, wireframe: false, transparent: true, opacity: 0 })
+    );
+    blockpotencia.position.set(300, 25, 750)
+    blockpotencia.name = "Potencia";
+    var potencia = new THREE.Object3D();
+    loadOBJWithMTL("./assets/Models/", "BomX2.obj", "BomX2.mtl", (obj) => {
+
+        obj.position.set(0, -45, -60);
+        obj.rotateY(1.5708)
+        obj.scale.set(8, 8, 8);
+        obj.castShadow = true;
+        obj.receiveShadow = true;
+        // obj.material.color = 0x0000ff;
+        // obj.rotateY(1.5708)
+        // blockpotencia.add(obj);
+        potencia.copy(obj);
+    })
+    potencia.position.copy(blockpotencia.position);
+    collidableList.push(blockpotencia);
+    blockpotencia.add(potencia);
+    scene.add(blockpotencia);
+    //Modelo capa
+    blockcapa = new THREE.Mesh(
+        new THREE.BoxGeometry(50, 50, 50),
+        new THREE.MeshBasicMaterial({ color: 0xfffce8, wireframe: false, transparent: true, opacity: 0.5 })
+    );
+    blockcapa.position.set(400, 25, 750)
+    blockcapa.name = "Capa";
+    var capa = new THREE.Object3D();
+    loadOBJWithMTL("./assets/Models/", "Capa01.obj", "Capa01.mtl", (obj) => {
+
+        obj.position.set(0, 0, 0);
+        // obj.rotateY(1.5708)
+        obj.scale.set(6, 6, 6);
+        obj.castShadow = true;
+        obj.receiveShadow = true;
+        // obj.material.color = 0x0000ff;
+        // obj.rotateY(1.5708)
+        // blockcapa.add(obj);
+        capa.copy(obj);
+        // scene.add(capa);
+    })
+    console.log(capa.position);
+    capa.position.copy(blockcapa.position);
+    console.log(capa.position);
+    collidableList.push(blockcapa);
+    blockcapa.add(capa);
+    scene.add(blockcapa);
     var bloques = [
         [0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0],
         [0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0],
@@ -320,14 +452,14 @@ function initScene() {
     scene.add(powerup3);
     collidableList.push(powerup3);
 
-    var capa = new THREE.Mesh(
-        new THREE.BoxGeometry(50, 50, 50),
-        new THREE.MeshBasicMaterial({ color: 0xab00ff, wireframe: false })
-    );
-    capa.position.set(-150, 25, 1000);
-    capa.name = "Capa";
-    scene.add(capa);
-    collidableList.push(capa);
+    // var capa = new THREE.Mesh(
+    //     new THREE.BoxGeometry(50, 50, 50),
+    //     new THREE.MeshBasicMaterial({ color: 0xab00ff, wireframe: false })
+    // );
+    // capa.position.set(-150, 25, 1000);
+    // capa.name = "Capa";
+    // scene.add(capa);
+    // collidableList.push(capa);
     // Big
     // Texturas
     // var textAldea2 = new THREE.TextureLoader().load('assets/textures/tablon.jpg');
@@ -436,31 +568,6 @@ function initScene() {
     //     // blockModel.add(obj);
     //     scene.add(obj);
     // })
-
-    var llamita = new THREE.Object3D();
-    loadOBJWithMTL("./assets/Models/", "S01.obj", "S01.mtl", (obj) => {
-
-        obj.position.set(0, 0, 9);
-        obj.rotateX(-1.5708)
-        // obj.scale.set(25, 25, 25);
-        obj.castShadow = true;
-        obj.receiveShadow = true;
-        // obj.material.color = 0x0000ff;
-        // obj.rotateY(1.5708)
-        // blockModel.add(obj);
-        llamita.copy(obj);
-    })
-    var blockModel = new THREE.Mesh(
-        new THREE.BoxGeometry(50, 50, 50),
-        new THREE.MeshBasicMaterial({ color: 0xfffce8, wireframe: false, transparent: true, opacity: 0 })
-    );
-    blockModel.position.set(0, 25, 750)
-    blockModel.name = "Snitch";
-    llamita.position.copy(blockModel.position);
-    collidableList.push(blockModel);
-    blockModel.add(llamita);
-
-    scene.add(blockModel);
 
 
     initObjects();

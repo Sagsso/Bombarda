@@ -10,8 +10,13 @@ class Player {
         this.vidas = 4;
         this.score = 0;
         this.vy = 0;
-        this.vx = 10;
+        this.vx = 5;
         this.m = 2;
+        this.position = {
+            x: null,
+            y: null,
+            z: null,
+        };
 
         if ("label" in ap) {
             if (ap.label) {
@@ -25,7 +30,7 @@ class Player {
             this._element = mesh;
         } else {
 
-            let geometry = new THREE.SphereGeometry(25, 32, 32);
+            let geometry = new THREE.BoxGeometry(50, 50, 50);
             let material = new THREE.MeshPhongMaterial({
                 color: 0x3498db,
                 wireframe: false,
@@ -48,27 +53,24 @@ class Player {
                 if (players[player] == null && !creado) {
                     switch (num) {
                         case 0:
-                            object1.position.x = 1425;
-                            object1.position.y = 25;
-                            object1.position.z = 1425;
+                            this.position = { x: 1425, y: 25, z: 1425 };
+                            console.log(this.position);
+                            object1.position.set(this.position.x, this.position.y, this.position.z);
                             creado = true;
                             break;
                         case 1:
-                            object1.position.x = -1425;
-                            object1.position.y = 25;
-                            object1.position.z = 1425;
+                            this.position = { x: -1425, y: 25, z: 1425 };
+                            object1.position.set(this.position.x, this.position.y, this.position.z);
                             creado = true;
                             break;
                         case 2:
-                            object1.position.x = -1425;
-                            object1.position.y = 25;
-                            object1.position.z = -1425;
+                            this.position = { x: -1425, y: 25, z: -1425 };
+                            object1.position.set(this.position.x, this.position.y, this.position.z);
                             creado = true;
                             break;
                         case 3:
-                            object1.position.x = 1425;
-                            object1.position.y = 25;
-                            object1.position.z = -1425;
+                            this.position = { x: 1425, y: 25, z: -1425 };
+                            object1.position.set(this.position.x, this.position.y, this.position.z);
                             creado = true;
                             break;
                     }
@@ -101,11 +103,23 @@ class Player {
     //     return this._control;
     // }
 
+    get position() {
+        return this._position;
+    }
+
+    set position(value) {
+        this._position = value;
+    }
 
     updateControls() {
         this.control.update(this.vx, this.vy, this.m, 90, this.potenciaBomba);
     }
 
+    savePosRespawn() {
+        this.position.x = this.element.position.x;
+        this.position.y = this.element.position.y;
+        this.position.z = this.element.position.z;
+    }
     getLabel() {
         return Utilities.label(
             this.element.position,

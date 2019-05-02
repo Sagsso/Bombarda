@@ -90,16 +90,16 @@ class Control {
         this.m = m;
         this.jumpForce = jf;
 
-        if (this._up.isPressed) {
+        if (this._up.isPressed && !this.isInAir) {
             this.element.position.z -= this.velocity;
         }
-        if (this._right.isPressed) {
+        if (this._right.isPressed && !this.isInAir) {
             this.element.position.x += this.velocity;
         }
-        if (this._down.isPressed) {
+        if (this._down.isPressed && !this.isInAir) {
             this.element.position.z += this.velocity;
         }
-        if (this._left.isPressed) {
+        if (this._left.isPressed && !this.isInAir) {
             this.element.position.x -= this.velocity;
         }
         if (this._placeBomb.isPressed && !this.isInAir) {
@@ -111,6 +111,7 @@ class Control {
                 collidableBomb.collideRight(this.player);
                 collidableBomb.collideFront(this.player);
                 collidableBomb.collideBack(this.player);
+                collidableBomb.collideIn(this.player);
 
                 var pos = collidableList.indexOf(group);
                 collidableList.splice(pos, 1);

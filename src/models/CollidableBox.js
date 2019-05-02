@@ -54,7 +54,9 @@ class CollidableBox {
                             scene.remove(intersections[0].object);
                             // console.log("removido")
                             // console.log(collidableList);
-                            player.vx += 5;
+                            if (player.vx < 12) {
+                                player.vx += 1;
+                            }
                             var powerupSound = new Sound(["./assets/songs/powerup.wav"], 15, scene, {
                                 debug: true,
                                 position: { x: 50, y: 0, z: 0 }
