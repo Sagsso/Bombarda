@@ -199,7 +199,7 @@ class Control {
                 setTimeout(sumarBombas, 4000);
                 setTimeout(boom, 4000);
                 setTimeout(activarBombas, 500);
-                setTimeout(renderLights, 3800);
+                setTimeout(renderLights, 4000);
 
 
                 // var collidableBoom = new CollidableBox();
@@ -207,28 +207,45 @@ class Control {
 
 
                 let createExplode = (x, y, z) => {
-                    var c2 = 0xe67e22;
+                    var c2 = 0x50bdff;
                     var sphere = new THREE.SphereBufferGeometry(15, 16, 16);
                     var material = new THREE.MeshBasicMaterial({ color: c2, opacity: 1, transparent: true })
                     var explode = new THREE.Mesh(sphere, material);
                     explode.position.x = x;
                     explode.position.y = y;
                     explode.position.z = z;
+                    var intensity = 5.5;
+                    var distance = 100;
+                    var decay = 2.0;
+                    var light = new THREE.PointLight(c2, intensity, distance, decay);
+                    light.position.x = x;
+                    light.position.y = y;
+                    light.position.z = z;
                     scene.add(explode);
+                    scene.add(light);
                     // while (material.opacity != 0) {
                     //     material.opacity -= 0.1;
                     // }
+                    // disminuirLuz(light);
                     TweenLite.to(explode.material, 1, { opacity: 0 });
-                    setTimeout(disappearBoom, 1000, explode);
+                    // TweenLite.to(explode.light.intensity, 1, { intensity: 0.0 });
+                    setTimeout(disappearBoom, 200, light);
+                    setTimeout(disappearBoom, 2000, explode);
                     // return explode;
+                }
+
+                let disminuirLuz = (light) => {
+                    while (light.intensity > 0) {
+                        light.intensity -= 0.1;
+                    }
                 }
 
                 var intensity = 2.5;
                 var distance = 100;
                 var decay = 2.0;
                 var c2 = 0xe67e22;
-                var sphere = new THREE.SphereBufferGeometry(5, 16, 8);
                 var light = new THREE.PointLight(c2, intensity, distance, decay);
+                var sphere = new THREE.SphereBufferGeometry(5, 16, 8);
                 light.add(new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({ color: c2 })));
                 light.position.x = x;
                 light.position.y = y;
@@ -247,6 +264,11 @@ class Control {
             if (!this.isJumping && !this.isInAir) {
                 this.isJumping = true;
                 this.element.position.y += this.jumpForce;
+                let jump = new Sound(["./assets/songs/jump.wav"], 15, scene, {
+                    debug: true,
+                    position: { x: 50, y: 0, z: 0 }
+                });
+                jump.play();
             }
         }
     }

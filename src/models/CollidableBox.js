@@ -99,6 +99,18 @@ class CollidableBox {
                             setTimeout(function () { player.inmune = false }, 10000);
 
                             break;
+                        case "Snitch":
+                            var pos = collidableList.indexOf(intersections[0].object);
+                            collidableList.splice(pos, 1);
+                            scene.remove(intersections[0].object);
+                            player.score += 500;
+                            console.log(player.score);
+                            var powerupSound = new Sound(["./assets/songs/powerup.wav"], 15, scene, {
+                                debug: true,
+                                position: { x: 50, y: 0, z: 0 }
+                            });
+                            powerupSound.play();
+                            break;
                         case "thanos":
                             this.mesh.material.color = new THREE.Color("0xffffff")
                             break;

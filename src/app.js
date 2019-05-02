@@ -252,7 +252,7 @@ function initScene() {
                 case 1:
                     var block = new THREE.Mesh(
                         new THREE.BoxGeometry(50, 50, 50),
-                        new THREE.MeshBasicMaterial({ color: 0xfffce8, wireframe: false })
+                        new THREE.MeshBasicMaterial({ color: 0xfffce8, wireframe: false, map: THREE.ImageUtils.loadTexture('assets/textures/1.png') })
                     );
                     block.castShadow = true;
                     block.receiveShadow = true;
@@ -420,6 +420,47 @@ function initScene() {
     document.body.appendChild(stats.domElement);
 
 
+    // loadOBJ("./assets/Models/Flame.obj", (obj) => {
+    //     // var blockModel = new THREE.Mesh(
+    //     //     new THREE.BoxGeometry(50, 50, 50),
+    //     //     new THREE.MeshBasicMaterial({ color: 0xfffce8, wireframe: false, transparent: true, opacity: 0 })
+    //     // );
+    //     // blockModel.position.set(0, 25, 500);
+    //     obj.position.set(0, 100, 750);
+    //     obj.rotateX(-1.5708)
+    //     obj.scale.set(25, 25, 25);
+    //     obj.castShadow = true;
+    //     obj.receiveShadow = true;
+    //     obj.material.color = 0x0000ff;
+    //     // obj.rotateY(1.5708)
+    //     // blockModel.add(obj);
+    //     scene.add(obj);
+    // })
+
+    var llamita = new THREE.Object3D();
+    loadOBJWithMTL("./assets/Models/", "S01.obj", "S01.mtl", (obj) => {
+
+        obj.position.set(0, 0, 9);
+        obj.rotateX(-1.5708)
+        // obj.scale.set(25, 25, 25);
+        obj.castShadow = true;
+        obj.receiveShadow = true;
+        // obj.material.color = 0x0000ff;
+        // obj.rotateY(1.5708)
+        // blockModel.add(obj);
+        llamita.copy(obj);
+    })
+    var blockModel = new THREE.Mesh(
+        new THREE.BoxGeometry(50, 50, 50),
+        new THREE.MeshBasicMaterial({ color: 0xfffce8, wireframe: false, transparent: true, opacity: 0 })
+    );
+    blockModel.position.set(0, 25, 750)
+    blockModel.name = "Snitch";
+    llamita.position.copy(blockModel.position);
+    collidableList.push(blockModel);
+    blockModel.add(llamita);
+
+    scene.add(blockModel);
 
 
     initObjects();
