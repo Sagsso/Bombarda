@@ -34,8 +34,6 @@ class CollidableBomb {
     }
 
     collideIn(playerOwner) {
-        console.log(playerOwner);
-        console.log(this.mesh);
         if (playerOwner.element.position.x == this.mesh.position.x && playerOwner.element.position.z == this.mesh.position.z) {
             playerOwner.vidas -= 1;
             if (playerOwner.vidas > 0) {
@@ -43,9 +41,6 @@ class CollidableBomb {
             } else {
                 scene.remove(playerOwner.element);
             }
-            console.log('Quitó vidas y posicionó');
-            console.log('Puntaje');
-            console.log(`El puntaje de ${playerOwner.name} es ${playerOwner.score}`);
             let dead = new Sound(["./assets/songs/dead.wav"], 15, scene, {
                 debug: true,
                 position: { x: 50, y: 0, z: 0 }
@@ -58,7 +53,6 @@ class CollidableBomb {
     collideLeft(player) {
         let callback = (intersections, player) => {
             deleteObjects(intersections, player);
-            console.log('eliminados Left');
         }
         this.collide({ x: 1, y: 0, z: 0 }, callback, player);
     }
@@ -66,14 +60,12 @@ class CollidableBomb {
     collideRight(player) {
         let callback = (intersections, player) => {
             deleteObjects(intersections, player);
-            console.log('eliminados Right');
         }
         this.collide({ x: -1, y: 0, z: 0 }, callback, player);
     }
     collideFront(player) {
         let callback = (intersections, player) => {
             deleteObjects(intersections, player);
-            console.log('eliminados Front');
         }
         this.collide({ x: 0, y: 0, z: 1 }, callback, player);
     }
@@ -81,7 +73,6 @@ class CollidableBomb {
     collideBack(player) {
         let callback = (intersections, player) => {
             deleteObjects(intersections, player);
-            console.log('eliminados Back');
         }
         this.collide({ x: 0, y: 0, z: -1 }, callback, player);
     }
@@ -97,7 +88,6 @@ class CollidableBomb {
 
 function deleteObjects(intersections, playerOwner) {
     if (intersections[0].object.name == "Player") {
-        console.log('Explotó Player');
         for (const player of Object.keys(players)) {
             if (players[player].element == intersections[0].object) {
                 if (!players[player].inmune) {
@@ -110,9 +100,6 @@ function deleteObjects(intersections, playerOwner) {
                     if (playerOwner != players[player]) {
                         players[player].score += 50;
                     }
-                    console.log('Quitó vidas y posicionó');
-                    console.log('Puntaje');
-                    console.log(`El puntaje de ${playerOwner.name} es ${playerOwner.score} y sus vidas ${playerOwner.vidas}`);
                     let dead = new Sound(["./assets/songs/dead.wav"], 15, scene, {
                         debug: true,
                         position: { x: 50, y: 0, z: 0 }

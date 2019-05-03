@@ -176,14 +176,31 @@ class CollidableBox {
                     this.mesh.position.y += 1 / 2;
                 }
                 switch (intersections[0].object.name) {
-                    case "plataforma":
-                        powerup2.isInUse = true;
-                        powerup2.position.y += 1;
+                    case "plataforma1":
+                        elevacion.isInUse = true;
+                        elevacion.position.y += 1 / 2;
+                        break;
+                    case "plataforma2":
+                        elevacion2.isInUse = true;
+                        elevacion2.position.y += 1 / 2;
+                        break;
+                    case "plataforma3":
+                        elevacion3.isInUse = true;
+                        elevacion3.position.y += 1 / 2;
+                        break;
+                    case "plataforma4":
+                        elevacion4.isInUse = true;
+                        elevacion4.position.y += 1 / 2;
                         break;
                     case "thanos":
                         this.mesh.material.color = new THREE.Color("0xffffff")
                         break;
                 }
+            } else {
+                elevacion.isInUse = false;
+                elevacion2.isInUse = false;
+                elevacion3.isInUse = false;
+                elevacion4.isInUse = false;
             }
 
 

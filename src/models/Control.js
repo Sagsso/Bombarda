@@ -90,16 +90,16 @@ class Control {
         this.m = m;
         this.jumpForce = jf;
 
-        if (this._up.isPressed && !this.isInAir) {
+        if (this._up.isPressed) {
             this.element.position.z -= this.velocity;
         }
-        if (this._right.isPressed && !this.isInAir) {
+        if (this._right.isPressed) {
             this.element.position.x += this.velocity;
         }
-        if (this._down.isPressed && !this.isInAir) {
+        if (this._down.isPressed) {
             this.element.position.z += this.velocity;
         }
-        if (this._left.isPressed && !this.isInAir) {
+        if (this._left.isPressed) {
             this.element.position.x -= this.velocity;
         }
         if (this._placeBomb.isPressed && !this.isInAir) {
@@ -150,40 +150,27 @@ class Control {
 
                 scene.add(group);
                 collidableList.push(boxBomb);
-                // console.log(collidableList);
-                // scene.add(boxBomb);
-                // scene.add(bomb);
-                console.log('Me llamaron?')
-                console.log(this.capacityBombs);
-                console.log(this);
                 this.capacityBombs -= 1;
                 this.availableBomb = false;
-                console.log(this.capacityBombs);
-                // this.availableBomb = false;
                 var collidableBomb = new CollidableBomb(boxBomb, 25, units);
                 let renderLights = () => {
                     for (var i = 1; i <= units; i++) {
-                        // var infiniteTimedLoop = function () {
-                        //     createExplode(x + (50 * i), y, z);
-                        //     createExplode(x - (50 * i), y, z);
-                        //     createExplode(x, y, z + (50 * i));
-                        //     createExplode(x, y, z - (50 * i));
-                        //     console.log('Creadas ' + i);
-                        // }
+                        var c2 = 0x50bdff;
+                        var intensity = 5.5;
+                        var distance = 100;
+                        var decay = 2.0;
+                        var light = new THREE.PointLight(c2, intensity, distance, decay);
+                        light.position.x = x;
+                        light.position.y = y;
+                        light.position.z = z;
+                        scene.add(light);
+
+                        setTimeout(disappearBoom, 200, light);
                         createExplode(x + (50 * i), y, z);
                         createExplode(x - (50 * i), y, z);
                         createExplode(x, y, z + (50 * i));
                         createExplode(x, y, z - (50 * i));
-                        // console.log(i);
-                        // var count= i;
-                        // setTimeout(function () {
-                        //     createExplode(x + (50 * i), y, z);
-                        //     createExplode(x - (50 * i), y, z);
-                        //     createExplode(x, y, z + (50 * i));
-                        //     createExplode(x, y, z - (50 * i));
-                        //     console.log(i);
-                        // }, timeFrame);
-                        // timeFrame += 200;
+
                     }
                     let bombSound = new Sound(["./assets/songs/Bomb.mp3"], 15, scene, {
                         debug: true,
@@ -197,71 +184,37 @@ class Control {
                     scene.remove(explode);
                 }
 
-                setTimeout(sumarBombas, 4000);
-                setTimeout(boom, 4000);
-                setTimeout(activarBombas, 500);
-                setTimeout(renderLights, 4000);
-
-
-                // var collidableBoom = new CollidableBox();
-
-
-
                 let createExplode = (x, y, z) => {
                     var c2 = 0x50bdff;
-                    var sphere = new THREE.SphereBufferGeometry(15, 16, 16);
+                    var sphere = new THREE.SphereGeometry(15);
                     var material = new THREE.MeshBasicMaterial({ color: c2, opacity: 1, transparent: true })
                     var explode = new THREE.Mesh(sphere, material);
                     explode.position.x = x;
                     explode.position.y = y;
                     explode.position.z = z;
-                    var intensity = 5.5;
-                    var distance = 100;
-                    var decay = 2.0;
-                    var light = new THREE.PointLight(c2, intensity, distance, decay);
-                    light.position.x = x;
-                    light.position.y = y;
-                    light.position.z = z;
                     scene.add(explode);
-                    scene.add(light);
+
                     // while (material.opacity != 0) {
                     //     material.opacity -= 0.1;
                     // }
                     // disminuirLuz(light);
-                    TweenLite.to(explode.material, 1, { opacity: 0 });
+                    TweenLite.to(explode.material, 1.5, { opacity: 0 });
                     // TweenLite.to(explode.light.intensity, 1, { intensity: 0.0 });
-                    setTimeout(disappearBoom, 200, light);
                     setTimeout(disappearBoom, 2000, explode);
                     // return explode;
                 }
 
-                let disminuirLuz = (light) => {
-                    while (light.intensity > 0) {
-                        light.intensity -= 0.1;
-                    }
-                }
 
-                var intensity = 2.5;
-                var distance = 100;
-                var decay = 2.0;
-                var c2 = 0xe67e22;
-                var light = new THREE.PointLight(c2, intensity, distance, decay);
-                var sphere = new THREE.SphereBufferGeometry(5, 16, 8);
-                light.add(new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({ color: c2 })));
-                light.position.x = x;
-                light.position.y = y;
-                light.position.z = z;
-
-
-
-
+                setTimeout(sumarBombas, 4000);
+                setTimeout(boom, 4000);
+                setTimeout(activarBombas, 500);
+                setTimeout(renderLights, 4000);
             }
 
 
 
         }
         if (this._jump.isPressed) {
-            console.log(`is Jumping: ${this.isJumping} and is In Air: ${this.isInAir}`)
             if (!this.isJumping && !this.isInAir) {
                 this.isJumping = true;
                 this.element.position.y += this.jumpForce;
