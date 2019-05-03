@@ -221,6 +221,35 @@ function initScene() {
     // scene.add(spotLight.target);
     // scene.add(new THREE.SpotLightHelper(spotLight, 1));
     initObjects();
+    //Modelo Snitch
+    let pushSnitch = () => {
+
+
+        var blockSnitch = new THREE.Mesh(
+            new THREE.BoxGeometry(50, 50, 50),
+            new THREE.MeshBasicMaterial({ color: 0xfffce8, wireframe: false, transparent: true, opacity: 0 })
+        );
+        blockSnitch.position.set(0, 225, 0)
+        blockSnitch.name = "Snitch";
+        var snitch = new THREE.Object3D();
+        loadOBJWithMTL("./assets/Models/", "S01.obj", "S01.mtl", (obj) => {
+
+            obj.position.set(0, 0, 9);
+            obj.rotateX(-1.5708)
+            // obj.scale.set(25, 25, 25);
+            obj.castShadow = true;
+            obj.receiveShadow = true;
+            // obj.material.color = 0x0000ff;
+            // obj.rotateY(1.5708)
+            // blockSnitch.add(obj);
+            snitch.copy(obj);
+        })
+        snitch.position.copy(blockSnitch.position);
+        collidableList.push(blockSnitch);
+        blockSnitch.add(snitch);
+        scene.add(blockSnitch);
+    }
+    setTimeout(pushSnitch, 200000);
 
     //UV PERSONAJES
 
@@ -1358,6 +1387,7 @@ function initObjects() {
     });
     backgroundSound2.play();
     setTimeout(mayorPuntaje, 300000);
+
 }
 
 function validateWin() {

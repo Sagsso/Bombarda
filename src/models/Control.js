@@ -163,9 +163,9 @@ class Control {
                         light.position.x = x;
                         light.position.y = y;
                         light.position.z = z;
-                        scene.add(light);
+                        // scene.add(light);
 
-                        setTimeout(disappearBoom, 200, light);
+                        // setTimeout(disappearBoom, 200, light);
                         createExplode(x + (50 * i), y, z);
                         createExplode(x - (50 * i), y, z);
                         createExplode(x, y, z + (50 * i));
