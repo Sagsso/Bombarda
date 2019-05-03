@@ -1,4 +1,5 @@
-*{
+*
+{
     margin: 0;
     box-sizing: border-box;
 }
@@ -15,3 +16,289 @@ body{
     height: 100vh;
     background: #2c3e50;
 }
+
+
+
+@font-face {
+    font-family: HARRYP;
+    src: url(../assets/fonts/HARRYP.ttf);
+  }
+  @font-face {
+    font-family: Motorblock;
+    src: url(../assets/fonts/Motorblock.ttf);
+  }
+  @font-face {
+    font-family: College;
+    src: url(../assets/fonts/College.otf);
+  }
+  
+
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+body{
+    display: flex;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #000;
+    overflow-y: hidden;
+}
+
+#app, #home{
+    width: 100vw;
+    height: 100vh;
+    background:  url(../assets/background/fondo.png);
+    background-size: 100vw;
+    background-repeat: no-repeat;
+}
+
+#config{
+    width: 100vw;
+    height: 100vh;
+    background:  url(../assets/background/config.png);
+    background-size: 100vw;
+    background-repeat: no-repeat;
+}
+
+#settings, #results, #app{
+    display: none;
+}
+
+#home{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+#home .title{
+    margin-top: 20vh;
+    font-family: HARRYP;
+    font-size: 18vw;
+    color: rgb(0, 0, 0);
+    margin-bottom: 4vh;
+    text-shadow: 10px 2px rgba(0, 0, 0, 0.288);
+}
+
+@keyframes fontGrowth {
+    from {font-size: 0vw;}
+    to {font-size: 8vw;}
+  }
+
+#home .suppaButton{
+    font-family: Motorblock;
+    font-size: 3.5vw;
+    color: aliceblue;
+    padding: 1vw 1.5vw;
+    border: 1px solid goldenrod;
+    cursor: pointer;
+}
+
+.start-btn{
+    font-family: Motorblock;
+    text-align: center;
+	display: inline-block;
+	margin:5px;
+    padding: 10px 10px 10px 10px ;
+    background-color: lightgray;
+    text-shadow: -1px -1px black, 1px 1px white;
+    color: rgb(0, 0, 0);
+    -webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	-o-border-radius: 7px;
+	border-radius: 50px;
+    box-shadow: .2em.2em rgb(0, 0, 0); 
+    cursor: pointer;
+    font-size: 1.8vw;
+}
+
+.config-btn{
+    font-family: Motorblock;
+    text-align: center;
+	display: inline-block;
+	margin:5px;
+    padding: 10px 10px 10px 10px ;
+    background-color: lightgray;
+    text-shadow: -1px -1px black, 1px 1px white;
+    color: rgb(0, 0, 0);
+    -webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	-o-border-radius: 7px;
+	border-radius: 50px;
+    box-shadow: .2em.2em rgb(0, 0, 0); 
+    cursor: pointer;
+    font-size: 1.8vw;
+}
+
+.mapas-btn{
+    font-family: College;
+    text-align: center;
+	display: inline-block;
+	margin:5px;
+    padding: 85px 10px 10px 130px;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    font-size: 3.0vw;
+}
+
+.sonidos-btn{
+    font-family: College;
+    text-align: center;
+	display: inline-block;
+	margin:5px;
+    padding: 85px 10px 10px 10px;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    font-size: 3.0vw;
+}
+
+.controles-btn{
+    font-family: College;
+    text-align: center;
+	display: inline-block;
+	margin:5px;
+    padding: 85px 10px 10px 10px;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    font-size: 3.0vw;
+}
+
+.regresar{
+    position: absolute;
+    top: 500px; left: 800px; 
+    cursor: pointer;
+}
+
+#options{
+    position: absolute;
+    right: 50%;
+    bottom: 2%;
+    padding: 2px;
+    /* background: #000; */
+    /* color: white; */
+    /* border-radius: 5px; */
+    /* width: 10vw; */
+    cursor: pointer;
+    text-align: center;
+    /* border: 1px solid rgba(255,255,255,0.8); */
+    display: none;
+}
+
+#options .options{
+    display: none;
+    margin-top: 10px;
+    border-top: 1px solid white;
+    padding-top: 10px;
+    font-size: 85%;
+}
+
+#options .options div{
+    padding: 2px;
+    transition: all 0.3s ease;
+    margin: 2px;
+}
+#options .options div:hover{
+    padding: 4px;
+    font-size: 95%;
+    background: #2c3e50;
+}
+
+.wrapper {
+  display: grid;
+}
+* {box-sizing: border-box;}
+
+.wrapper {
+  border: 2px solid #f76707;
+  border-radius: 5px;
+  background-color: #fff4e6;
+}
+
+.wrapper > div {
+  border: 2px solid #ffa94d;
+  border-radius: 5px;
+  background-color: #ffd8a8;
+  padding: 1em;
+  color: #d9480f;
+}
+
+.playerUI{
+    font-family: HARRYP;
+}
+#P1{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    position: absolute;
+    left: 5%;
+    top: 20%;
+    font-size: 200%;
+    color: white;
+}
+#P2{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    position: absolute;
+    left: 5%;
+    top: 60%;
+    font-size: 200%;
+    color: white;
+}
+#P3{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    position: absolute;
+    right: 5%;
+    top: 20%;
+    font-size: 200%;
+    color: white;
+}
+#P4{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    position: absolute;
+    right: 5%;
+    top: 60%;
+    font-size: 200%;
+    color: white;
+}
+
+.player{
+    position: absolute;
+    top: 20%;
+    margin: 5px;
+    background: rgba(194, 59, 59, 0.8);
+    border: 1px snow;
+    color: aliceblue;
+    padding: 10px 15px;
+    border-radius: 5px;
+    width: 10vw;
+    display: flex;
+}
+
+.player .color{
+    flex: 4;
+    background: #2c3e50;
+}
+
+.player .name{
+    flex: 6;
+    margin-left: 4px;
+}
+#contenedor{
+    /* display: flex; */
+    
+    top:5%;
+    left:50%;
+}
+.reloj{
+	/* float: none; */
+	font-size: 80px;
+	font-family: Courier,sans-serif;
+	color: #363431;
+}
+

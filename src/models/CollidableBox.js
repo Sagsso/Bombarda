@@ -80,7 +80,6 @@ class CollidableBox {
                             collidableList.splice(pos, 1);
                             scene.remove(intersections[0].object);
                             player.potenciaBomba += 1;
-                            console.log(player.control.capacityBombs);
                             var powerupSound = new Sound(["./assets/songs/powerup.wav"], 15, scene, {
                                 debug: true,
                                 position: { x: 50, y: 0, z: 0 }

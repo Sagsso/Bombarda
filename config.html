@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bombarda</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="../three.js-master/build/three.min.js"></script>
+    <script src="src/loaders/OBJLoader.js"></script>
+    <script src="../libs/OrbitControls.js"></script>
+    <script src="../libs/Pabhoz/Utilities.js"></script>
+    <script src="src/models/Sound.js"></script>
+    <script src="src/models/Control.js"></script>
+    <script src="src/models/CollidableBox.js"></script>
+    <script src="src/models/Player.js"></script>
+    <script src="src/models/Loaders.js"></script>
+    <script src="../libs/Stats.js"></script>
+
+
+</head>
+
+<body background-image: url(C:\xampp\htdocs\CG\Interactive3DApplication\assets\background)>
+    <!--onload="webGLStart()"-->
+    <style>
+        .slidecontainer {
+            width: 30%;
+            position: absolute;
+            top: 250px;
+            left: 350px;
+        }
+
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 25px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .5s;
+        }
+
+        .slider:hover {
+            opacity: 1;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            background: rgb(0, 0, 0);
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+    </style>
+
+    <div id="config">
+
+
+        <div class="mapas-btn" onclick="gameStart()">Mapas</div>
+        <div class="sonidos-btn" onclick="gameStart()">Sonidos</div>
+        <div class="controles-btn" onclick="gameStart()">Controles</div>
+
+
+        <div class="slidecontainer">
+            <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+        </div>
+        <div class="regresar" onclick="location='index.html'"> <img src="assets/background/regresar.png" width="80"
+                height="70" /></div>
+
+
+
+    </div>
+    <div id="settings"></div>
+    <div id="results"></div>
+    <div id="app">
+        <canvas id="appCanvas" width="100%" height="100%"></canvas>
+    </div>
+    <script>
+        /*window.onload = () => {
+            let options = document.querySelector("#options");
+            options.onclick = () => {
+                showHideGame();
+            }
+            options.onmouseover = () => {
+                let children = options.children[0];
+                
+                children.style.display = ( children.style.display != "block") ? "block" : "none";
+            }
+
+            options.onmouseleave = () => { 
+            }*/
+
+
+        function showHideGame() {
+            let home = document.querySelector("#home");
+            if (home.style.display != "flex") {
+                if (home.style.display == "") {
+                    home.style.display = "none";
+                } else {
+                    home.style.display = "flex";
+                }
+            }
+            let app = document.querySelector("#app");
+            app.style.display = (app.style.display != "block") ? "block" : "none";
+            let options = document.querySelector("#options");
+            options.style.display = (options.style.display != "block") ? "block" : "none";
+        }
+    </script>
+    <script src="src/app.js"></script>
+</body>
+
+</html>
+<!-- npm init -->

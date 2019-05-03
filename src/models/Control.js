@@ -344,9 +344,6 @@ document.onkeydown = (e) => {
             case elControl.placeBomb:
                 elControl.pressBomb();
                 break;
-            case "8":
-                backgroundSound.play();
-                break;
         }
 
     }

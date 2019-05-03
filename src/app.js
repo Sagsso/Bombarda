@@ -1,6 +1,81 @@
 /**
  * GLOBAL VARS
  */
+var centesimas = 0;
+var segundos = 0;
+var minutos = 0;
+var horas = 0;
+
+// minutosDiv = document.createElement("div");
+// minutosDiv.id = "Minutos";
+// minutosDiv.classList = "reloj";
+// minutosDiv.innerHTML = "00";
+
+// segundosDiv = document.createElement("div");
+// segundosDiv.id = "Segundos";
+// segundosDiv.classList = "reloj";
+// segundosDiv.innerHTML = ":00";
+
+// let contenedor = document.querySelector(".contenedor");
+// contenedor.appendChild(minutosDiv);
+// contenedor.appendChild(segundosDiv);
+function inicio() {
+    control = setInterval(cronometro, 10);
+}
+// function parar() {
+//     clearInterval(control);
+//     document.getElementById("parar").disabled = true;
+//     document.getElementById("continuar").disabled = false;
+// }
+// function reinicio() {
+//     clearInterval(control);
+//     centesimas = 0;
+//     segundos = 0;
+//     minutos = 0;
+//     horas = 0;
+//     Centesimas.innerHTML = ":00";
+//     Segundos.innerHTML = ":00";
+//     Minutos.innerHTML = ":00";
+//     Horas.innerHTML = "00";
+//     document.getElementById("inicio").disabled = false;
+//     document.getElementById("parar").disabled = true;
+//     document.getElementById("continuar").disabled = true;
+//     document.getElementById("reinicio").disabled = true;
+// }
+function cronometro() {
+    if (centesimas < 99) {
+        centesimas++;
+        if (centesimas < 10) { centesimas = "0" + centesimas }
+        // Centesimas.innerHTML = ":" + centesimas;
+    }
+    if (centesimas == 99) {
+        centesimas = -1;
+    }
+    if (centesimas == 0) {
+        segundos++;
+        if (segundos < 10) { segundos = "0" + segundos }
+        segundosDiv.innerHTML = ":" + segundos;
+    }
+    if (segundos == 59) {
+        segundos = -1;
+    }
+    if ((centesimas == 0) && (segundos == 0)) {
+        minutos++;
+        if (minutos < 10) { minutos = "0" + minutos }
+        minutosDiv.innerHTML = ":" + minutos;
+    }
+    if (minutos == 59) {
+        minutos = -1;
+    }
+    if ((centesimas == 0) && (segundos == 0) && (minutos == 0)) {
+        horas++;
+        if (horas < 10) { horas = "0" + horas }
+        // Horas.innerHTML = horas;
+    }
+}
+
+
+
 lastTime = Date.now();
 //Ahora cameras es un objeto, y cada una de las cámaras es otro objeto que tiene cam y el isCurrent
 //cam es donde irá asignada la cámara creada desde Three.js
@@ -65,6 +140,8 @@ function initScene() {
     renderer.shadowMapEnabled = true;
     renderer.shadowMapType = THREE.PCFSoftShadowMap;
     canvas.container.appendChild(renderer.domElement);
+
+
 
     //Init player with controls
     players.p1 = new Player("P1", null, new Control(), 25, { label: true });
@@ -144,6 +221,10 @@ function initScene() {
     // scene.add(spotLight.target);
     // scene.add(new THREE.SpotLightHelper(spotLight, 1));
     initObjects();
+
+    //UV PERSONAJES
+
+
     //Piso
     //Materiales
     var material = new THREE.MeshPhongMaterial({ wireframe: false, map: THREE.ImageUtils.loadTexture('assets/textures/Base.jpg') });
@@ -819,7 +900,7 @@ function initScene() {
 
 
     elevacion = new THREE.Mesh(geometriaPlatformE, matPlatformE);
-    elevacion.position.set(800, 2, 0);
+    elevacion.position.set(800, 20, 0);
     elevacion.rotation.y += 90 * Math.PI / 180;
     elevacion.name = "plataforma1";
     elevacion.isInUse = false;
@@ -831,7 +912,7 @@ function initScene() {
     elevacion2.rotation.y += 180 * Math.PI / 180;
     elevacion2.name = "plataforma2";
     elevacion2.isInUse = false;
-    elevacion2.position.set(-800, 2, 0);
+    elevacion2.position.set(-800, 20, 0);
     collidableList.push(elevacion2);
     scene.add(elevacion2);
 
@@ -871,7 +952,7 @@ function initScene() {
 
 
     elevacion3 = new THREE.Mesh(geometriaPlatformE2, matPlatformE2);
-    elevacion3.position.set(0, 2, 800);
+    elevacion3.position.set(0, 20, 800);
     elevacion3.name = "plataforma3";
     elevacion3.isInUse = false;
     scene.add(elevacion3);
@@ -882,7 +963,7 @@ function initScene() {
     elevacion4.name = "plataforma4";
     elevacion4.rotation.y += 180 * Math.PI / 180;
     elevacion4.isInUse = false;
-    elevacion4.position.set(0, 2, -800);
+    elevacion4.position.set(0, 20, -800);
     collidableList.push(elevacion4);
     scene.add(elevacion4);
 
@@ -890,6 +971,109 @@ function initScene() {
     platformsElev.push(elevacion2)
     platformsElev.push(elevacion3)
     platformsElev.push(elevacion4)
+
+    //Plataforma Decarotiva
+    var matPlatformD = new THREE.MeshPhongMaterial({ color: 0x616161, wireframe: false, map: THREE.ImageUtils.loadTexture('assets/textures/Plata.jpg') });
+    // Aldea.map.wrapS = THREE.MirroredRepeatWrapping;
+    // Aldea.map.wrapT = THREE.MirroredRepeatWrapping;
+    // Aldea.map.repeat.set(3, 3);
+
+    var geometriaPlatformD = new THREE.BoxGeometry(200, 100, 200);
+    var UVD = {
+        PlatD: [
+            new THREE.Vector2(0.5, 1.0),
+            new THREE.Vector2(0.5, 0.0),
+            new THREE.Vector2(1.0, 0.0),
+            new THREE.Vector2(1.0, 1.0)
+
+        ],
+
+    }
+
+    //Mapeo de las texturas sobre las caras
+
+    geometriaPlatformD.faceVertexUvs[0] = [];
+    geometriaPlatformD.faceVertexUvs[0][4] = [
+        UVD.PlatD[0],
+        UVD.PlatD[1],
+        UVD.PlatD[3]
+    ];
+    geometriaPlatformD.faceVertexUvs[0][5] = [
+        UVD.PlatD[1],
+        UVD.PlatD[2],
+        UVD.PlatD[3]
+    ];
+
+
+
+    platformD = new THREE.Mesh(geometriaPlatformD, matPlatformD);
+    platformD.position.z = -350;
+    platformD.position.y = 250;
+    platformD.position.x = -350;
+    platformD.castShadow = true;
+    platformD.receiveShadow = true;
+    scene.add(platformD);
+    collidableList.push(platformD);
+
+    //Clone decorative
+    // Aldea.map.wrapS = THREE.MirroredRepeatWrapping;
+    // Aldea.map.wrapT = THREE.MirroredRepeatWrapping;
+    // Aldea.map.repeat.set(3, 3);
+
+    var geometriaPlatformD2 = new THREE.BoxGeometry(200, 80, 200);
+    var UVD2 = {
+        PlatD2: [
+            new THREE.Vector2(0.5, 1.0),
+            new THREE.Vector2(0.5, 0.0),
+            new THREE.Vector2(1.0, 0.0),
+            new THREE.Vector2(1.0, 1.0)
+
+        ],
+
+    }
+
+    //Mapeo de las texturas sobre las caras
+
+    geometriaPlatformD2.faceVertexUvs[0] = [];
+    geometriaPlatformD2.faceVertexUvs[0][4] = [
+        UVD2.PlatD2[0],
+        UVD2.PlatD2[1],
+        UVD2.PlatD2[3]
+    ];
+    geometriaPlatformD2.faceVertexUvs[0][5] = [
+        UVD2.PlatD2[1],
+        UVD2.PlatD2[2],
+        UVD2.PlatD2[3]
+    ];
+
+
+
+    platformD2 = new THREE.Mesh(geometriaPlatformD2, matPlatformD);
+    platformD2.position.z = -350;
+    platformD2.position.y = 250;
+    platformD2.position.x = 350;
+    platformD2.castShadow = true;
+    platformD2.receiveShadow = true;
+    scene.add(platformD2);
+    collidableList.push(platformD2);
+
+    //Clone MD3
+    var platformD3 = platformD2.clone();
+    platformD3.position.x = 350;
+    platformD3.position.z = 350;
+    platformD3.position.y = 250;
+    collidableList.push(platformD3);
+    scene.add(platformD3);
+
+    //Clone MD3
+    var platformD4 = platformD.clone();
+    platformD4.position.x = -350;
+    platformD4.position.z = 350;
+    platformD4.position.y = 250;
+    collidableList.push(platformD4);
+    scene.add(platformD4);
+
+
     // var powerup = new THREE.Mesh(
     //     new THREE.BoxGeometry(50, 50, 50),
     //     new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: false })
@@ -1168,12 +1352,38 @@ function initObjects() {
         inicioZ += 50;
     }
 
-    backgroundSound = new Sound(["./assets/songs/backgroundSound.mp3"], 15, scene, {
+    backgroundSound2 = new Sound(["./assets/songs/backgroundSound2.mp3"], 15, scene, {
         debug: true,
         position: { x: 50, y: 0, z: 0 }
     });
+    backgroundSound2.play();
+    setTimeout(mayorPuntaje, 300000);
+}
 
+function validateWin() {
+    for (const player of Object.keys(players)) {
+        if (players[player] != null) {
+            if (players[player].score >= 1000) {
+                console.log(`${players[player].name} ha ganado la partida`);
+                for (const playerDelete of Object.keys(players)) {
+                    scene.remove(players[playerDelete].element);
+                }
+            }
 
+        }
+    }
+}
+
+function mayorPuntaje() {
+    var name = null;
+    var max = 0;
+    for (const player of Object.keys(players)) {
+        if (players[player].score > max) {
+            max = players[player].score;
+            name = players[player].name;
+        }
+    }
+    console.log(`${name} ha ganado la partida`);
 }
 
 /**
@@ -1186,13 +1396,14 @@ function animateScene() {
     updateScene();
 }
 
+
 /**
  * Function to evaluate logic over and
  * over again.
  */
 function updateScene() {
     lastTime = Date.now();
-
+    validateWin();
     //Updating camera view by control inputs
     cameraControl.update();
     //Updating FPS monitor

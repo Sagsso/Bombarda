@@ -98,7 +98,7 @@ function deleteObjects(intersections, playerOwner) {
                         scene.remove(players[player].element);
                     }
                     if (playerOwner != players[player]) {
-                        players[player].score += 50;
+                        playerOwner.score += 50;
                     }
                     let dead = new Sound(["./assets/songs/dead.wav"], 15, scene, {
                         debug: true,

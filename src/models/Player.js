@@ -10,7 +10,7 @@ class Player {
         this.vidas = 4;
         this.score = 0;
         this.vy = 0;
-        this.vx = 5;
+        this.vx = 7;
         this.m = 2;
         this.position = {
             x: null,
@@ -32,14 +32,11 @@ class Player {
 
             let geometry = new THREE.BoxGeometry(50, 50, 50);
             let material = new THREE.MeshPhongMaterial({
-                color: 0x3498db,
                 wireframe: false,
-                transparent: true
+                map: THREE.ImageUtils.loadTexture('assets/textures/personajes.jpg')
             });
 
-            var object1 = new THREE.Mesh(geometry, material);
-            object1.castShadow = true;
-            object1.receiveShadow = true;
+
 
             var caja = new THREE.Mesh(
                 new THREE.BoxGeometry(50, 50, 50),
@@ -53,22 +50,256 @@ class Player {
                 if (players[player] == null && !creado) {
                     switch (num) {
                         case 0:
+                            var UV5 = {
+
+
+                                Harry: [
+                                    new THREE.Vector2(0.0, 0.5),
+                                    new THREE.Vector2(0.0, 0.0),
+                                    new THREE.Vector2(0.22, 0.0),
+                                    new THREE.Vector2(0.22, 0.5)
+
+                                ]
+
+                            }
+
+                            //Mapeo de las texturas sobre las caras
+                            geometry.faceVertexUvs[0] = [];
+                            geometry.faceVertexUvs[0][8] = [
+                                UV5.Harry[0],
+                                UV5.Harry[1],
+                                UV5.Harry[3]
+                            ];
+                            geometry.faceVertexUvs[0][9] = [
+                                UV5.Harry[1],
+                                UV5.Harry[2],
+                                UV5.Harry[3]
+                            ];
+                            geometry.faceVertexUvs[0][0] = [
+                                UV5.Harry[0],
+                                UV5.Harry[1],
+                                UV5.Harry[3]
+                            ];
+                            geometry.faceVertexUvs[0][1] = [
+                                UV5.Harry[1],
+                                UV5.Harry[2],
+                                UV5.Harry[3]
+                            ];
+                            geometry.faceVertexUvs[0][2] = [
+                                UV5.Harry[0],
+                                UV5.Harry[1],
+                                UV5.Harry[3]
+                            ];
+                            geometry.faceVertexUvs[0][3] = [
+                                UV5.Harry[1],
+                                UV5.Harry[2],
+                                UV5.Harry[3]
+                            ];
+                            geometry.faceVertexUvs[0][10] = [
+                                UV5.Harry[0],
+                                UV5.Harry[1],
+                                UV5.Harry[3]
+                            ];
+                            geometry.faceVertexUvs[0][11] = [
+                                UV5.Harry[1],
+                                UV5.Harry[2],
+                                UV5.Harry[3]
+                            ];
+
+                            var object1 = new THREE.Mesh(geometry, material);
+                            object1.castShadow = true;
+                            object1.receiveShadow = true;
                             this.position = { x: 1425, y: 25, z: 1425 };
                             console.log(this.position);
                             object1.position.set(this.position.x, this.position.y, this.position.z);
                             creado = true;
                             break;
                         case 1:
+                            var UV6 = {
+
+
+                                Snape: [
+                                    new THREE.Vector2(0.25, 0.5),
+                                    new THREE.Vector2(0.25, 0.0),
+                                    new THREE.Vector2(0.48, 0.0),
+                                    new THREE.Vector2(0.48, 0.5)
+
+                                ]
+
+                            }
+
+                            //Mapeo de las texturas sobre las caras
+                            geometry.faceVertexUvs[0] = [];
+                            geometry.faceVertexUvs[0][8] = [
+                                UV6.Snape[0],
+                                UV6.Snape[1],
+                                UV6.Snape[3]
+                            ];
+                            geometry.faceVertexUvs[0][9] = [
+                                UV6.Snape[1],
+                                UV6.Snape[2],
+                                UV6.Snape[3]
+                            ];
+                            geometry.faceVertexUvs[0][0] = [
+                                UV6.Snape[0],
+                                UV6.Snape[1],
+                                UV6.Snape[3]
+                            ];
+                            geometry.faceVertexUvs[0][1] = [
+                                UV6.Snape[1],
+                                UV6.Snape[2],
+                                UV6.Snape[3]
+                            ];
+                            geometry.faceVertexUvs[0][2] = [
+                                UV6.Snape[0],
+                                UV6.Snape[1],
+                                UV6.Snape[3]
+                            ];
+                            geometry.faceVertexUvs[0][3] = [
+                                UV6.Snape[1],
+                                UV6.Snape[2],
+                                UV6.Snape[3]
+                            ];
+                            geometry.faceVertexUvs[0][10] = [
+                                UV6.Snape[0],
+                                UV6.Snape[1],
+                                UV6.Snape[3]
+                            ];
+                            geometry.faceVertexUvs[0][11] = [
+                                UV6.Snape[1],
+                                UV6.Snape[2],
+                                UV6.Snape[3]
+                            ];
+                            var object1 = new THREE.Mesh(geometry, material);
+                            object1.castShadow = true;
+                            object1.receiveShadow = true;
                             this.position = { x: -1425, y: 25, z: 1425 };
                             object1.position.set(this.position.x, this.position.y, this.position.z);
                             creado = true;
                             break;
                         case 2:
+                            var UV7 = {
+
+                                Volde: [
+                                    new THREE.Vector2(0.50, 0.5),
+                                    new THREE.Vector2(0.50, 0.0),
+                                    new THREE.Vector2(0.75, 0.0),
+                                    new THREE.Vector2(0.75, 0.5)
+
+                                ]
+
+                            }
+
+                            //Mapeo de las texturas sobre las caras
+                            geometry.faceVertexUvs[0] = [];
+                            geometry.faceVertexUvs[0][8] = [
+                                UV7.Volde[0],
+                                UV7.Volde[1],
+                                UV7.Volde[3]
+                            ];
+                            geometry.faceVertexUvs[0][9] = [
+                                UV7.Volde[1],
+                                UV7.Volde[2],
+                                UV7.Volde[3]
+                            ];
+
+                            geometry.faceVertexUvs[0][0] = [
+                                UV7.Volde[0],
+                                UV7.Volde[1],
+                                UV7.Volde[3]
+                            ];
+                            geometry.faceVertexUvs[0][1] = [
+                                UV7.Volde[1],
+                                UV7.Volde[2],
+                                UV7.Volde[3]
+                            ];
+                            geometry.faceVertexUvs[0][2] = [
+                                UV7.Volde[0],
+                                UV7.Volde[1],
+                                UV7.Volde[3]
+                            ];
+                            geometry.faceVertexUvs[0][3] = [
+                                UV7.Volde[1],
+                                UV7.Volde[2],
+                                UV7.Volde[3]
+                            ];
+                            geometry.faceVertexUvs[0][10] = [
+                                UV7.Volde[0],
+                                UV7.Volde[1],
+                                UV7.Volde[3]
+                            ];
+                            geometry.faceVertexUvs[0][11] = [
+                                UV7.Volde[1],
+                                UV7.Volde[2],
+                                UV7.Volde[3]
+                            ];
+
+
+                            var object1 = new THREE.Mesh(geometry, material);
+                            object1.castShadow = true;
+                            object1.receiveShadow = true;
                             this.position = { x: -1425, y: 25, z: -1425 };
                             object1.position.set(this.position.x, this.position.y, this.position.z);
                             creado = true;
                             break;
                         case 3:
+                            var UV8 = {
+
+                                Demen: [
+                                    new THREE.Vector2(0.78, 0.5),
+                                    new THREE.Vector2(0.78, 0.0),
+                                    new THREE.Vector2(1.0, 0.0),
+                                    new THREE.Vector2(1.0, 0.5)
+
+                                ],
+
+                            }
+
+                            //Mapeo de las texturas sobre las caras
+                            geometry.faceVertexUvs[0] = [];
+                            geometry.faceVertexUvs[0][8] = [
+                                UV8.Demen[0],
+                                UV8.Demen[1],
+                                UV8.Demen[3]
+                            ];
+                            geometry.faceVertexUvs[0][9] = [
+                                UV8.Demen[1],
+                                UV8.Demen[2],
+                                UV8.Demen[3]
+                            ];
+                            geometry.faceVertexUvs[0][0] = [
+                                UV8.Demen[0],
+                                UV8.Demen[1],
+                                UV8.Demen[3]
+                            ];
+                            geometry.faceVertexUvs[0][1] = [
+                                UV8.Demen[1],
+                                UV8.Demen[2],
+                                UV8.Demen[3]
+                            ];
+                            geometry.faceVertexUvs[0][2] = [
+                                UV8.Demen[0],
+                                UV8.Demen[1],
+                                UV8.Demen[3]
+                            ];
+                            geometry.faceVertexUvs[0][3] = [
+                                UV8.Demen[1],
+                                UV8.Demen[2],
+                                UV8.Demen[3]
+                            ];
+                            geometry.faceVertexUvs[0][10] = [
+                                UV8.Demen[0],
+                                UV8.Demen[1],
+                                UV8.Demen[3]
+                            ];
+                            geometry.faceVertexUvs[0][11] = [
+                                UV8.Demen[1],
+                                UV8.Demen[2],
+                                UV8.Demen[3]
+                            ];
+                            var object1 = new THREE.Mesh(geometry, material);
+                            object1.castShadow = true;
+                            object1.receiveShadow = true;
                             this.position = { x: 1425, y: 25, z: -1425 };
                             object1.position.set(this.position.x, this.position.y, this.position.z);
                             creado = true;
@@ -110,6 +341,58 @@ class Player {
     set position(value) {
         this._position = value;
     }
+    get score() {
+        return this._score;
+    }
+
+    set score(value) {
+        this._score = value;
+        let uiElement = document.querySelector(`#${this.name} .score`);
+        console.log(uiElement)
+        if (uiElement != undefined) {
+            uiElement.innerHTML = this.score;
+            console.log("creado")
+        }
+    }
+
+    get name() {
+        return this._name;
+    }
+
+    set name(value) {
+        this._name = value;
+        let uiElement = document.querySelector(`#${this.name} .name`);
+        console.log(uiElement);
+        if (uiElement != undefined) {
+            uiElement.innerHTML = this.name;
+        }
+    }
+
+    setUpUI() {
+        //wrapper
+        let playerUI = document.createElement("div");
+        playerUI.id = this.name;
+        playerUI.classList.add("playerUI");
+
+        //Name
+        let playerName = document.createElement("div");
+        playerName.classList.add("name");
+        playerName.innerHTML = this.name;
+
+        //Score
+        let scoreField = document.createElement("div");
+        scoreField.classList.add("score");
+        scoreField.innerHTML = this.score;
+
+        playerUI.appendChild(playerName);
+        playerUI.appendChild(scoreField);
+
+        let jugadores = document.querySelector(".wrapper");
+        jugadores.appendChild(playerUI);
+    }
+
+
+
 
     updateControls() {
         this.control.update(this.vx, this.vy, this.m, 90, this.potenciaBomba);
@@ -136,6 +419,7 @@ class Player {
         // console.log(this);
         this.collidableBox = new CollidableBox(this._element, 25);
         scene.add(this.element);
+        this.setUpUI();
     }
 
 }
