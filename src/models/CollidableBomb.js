@@ -35,16 +35,14 @@ class CollidableBomb {
 
     collideIn(playerOwner) {
         if (playerOwner.element.position.x == this.mesh.position.x && playerOwner.element.position.z == this.mesh.position.z) {
-            playerOwner.vidas -= 1;
-            if (playerOwner.vidas > 0) {
+            if (playerOwner.vidas >= 1) {
+                playerOwner.vidas -= 1;
                 playerOwner.element.position.set(playerOwner.position.x, playerOwner.position.y, playerOwner.position.z);
             } else {
                 scene.remove(playerOwner.element);
+                playerOwner = null;
             }
-            let dead = new Sound(["./assets/songs/dead.wav"], 15, scene, {
-                debug: true,
-                position: { x: 50, y: 0, z: 0 }
-            });
+            let dead = new Sound(["./assets/songs/dead.wav"]);
             let soundDead = () => dead.play();
             setTimeout(soundDead, 200);
         }
@@ -91,19 +89,17 @@ function deleteObjects(intersections, playerOwner) {
         for (const player of Object.keys(players)) {
             if (players[player].element == intersections[0].object) {
                 if (!players[player].inmune) {
-                    if (players[player].vidas > 0) {
+                    if (players[player].vidas >= 1) {
                         players[player].vidas -= 1;
                         players[player].element.position.set(players[player].position.x, players[player].position.y, players[player].position.z);
                     } else {
                         scene.remove(players[player].element);
+                        players[player] = null;
                     }
-                    if (playerOwner != players[player]) {
+                    if (playerOwner != players[player] && players[player] != null) {
                         playerOwner.score += 50;
                     }
-                    let dead = new Sound(["./assets/songs/dead.wav"], 15, scene, {
-                        debug: true,
-                        position: { x: 50, y: 0, z: 0 }
-                    });
+                    let dead = new Sound(["./assets/songs/dead.wav"]);
                     let soundDead = () => dead.play();
                     setTimeout(soundDead, 200);
 

@@ -8,15 +8,18 @@
     <title>Bombarda</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="../three.js-master/build/three.min.js"></script>
-    <script src="src/loaders/OBJLoader.js"></script>
     <script src="../libs/OrbitControls.js"></script>
     <script src="../libs/Pabhoz/Utilities.js"></script>
     <script src="src/models/Sound.js"></script>
     <script src="src/models/Control.js"></script>
-    <script src="src/models/CollidableBox.js"></script>
     <script src="src/models/Player.js"></script>
+    <script src="src/models/CollidableBox.js"></script>
+    <script src="src/models/CollidableBomb.js"></script>
+    <script src="src/loaders/OBJLoader.js"></script>
+    <script src="src/loaders/MTLLoader.js"></script>
     <script src="src/models/Loaders.js"></script>
     <script src="../libs/Stats.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
 
 
 </head>
@@ -72,7 +75,7 @@
 
 
         <div class="slidecontainer">
-            <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+            <input type="range" min="0" max="1" value="0.5" step="0.1" class="slider" id="myRange">
         </div>
         <div class="regresar" onclick="location='index.html'"> <img src="assets/background/regresar.png" width="80"
                 height="70" /></div>
@@ -99,7 +102,18 @@
 
             options.onmouseleave = () => { 
             }*/
+        console.log(players);
+        backgroundSound2 = new Sound(["./assets/songs/backgroundSound2.mp3"]);
+        backgroundSound2.play();
 
+        var volu3 = document.getElementById('myRange');
+        window.setInterval(changeVolume, 1);
+        function changeVolume() {
+            var x = volu3.value;
+            volume = x;
+            console.log(volume);
+            backgroundSound2.update(volume);
+        }
 
         function showHideGame() {
             let home = document.querySelector("#home");

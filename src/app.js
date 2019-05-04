@@ -1,6 +1,8 @@
 /**
  * GLOBAL VARS
  */
+
+
 var centesimas = 0;
 var segundos = 0;
 var minutos = 0;
@@ -144,48 +146,49 @@ function initScene() {
 
 
     //Init player with controls
-    players.p1 = new Player("P1", null, new Control(), 25, { label: true });
-    players.p1.control.player = players.p1;
-    players.p1.play(scene);
-    players.p1.savePosRespawn();
-    console.log(players.p1.position);
-    players.p2 = new Player("P2", null, new Control("t", "h", "g", "f", "b", "y"), 25, { label: true });
-    players.p2.control.player = players.p2;
-    players.p2.play(scene);
-    players.p2.savePosRespawn();
-    players.p3 = new Player("P3", null, new Control("i", "l", "k", "j", "m", "o"), 25, { label: true });
-    players.p3.control.player = players.p3;
-    players.p3.play(scene);
-    players.p3.savePosRespawn();
-    players.p4 = new Player("P4", null, new Control("8", "6", "5", "4", "2", "9"), 25, { label: true });
-    players.p4.control.player = players.p4;
-    players.p4.play(scene);
-    players.p4.savePosRespawn();
 
+    // console.log(players.p1.position);
+    // players.p2 = new Player("P2", null, new Control("t", "h", "g", "f", "b", "y"), 25, { label: true });
+    // players.p2.control.player = players.p2;
+    // players.p2.play(scene);
+    // players.p2.savePosRespawn();
+    // players.p3 = new Player("P3", null, new Control("i", "l", "k", "j", "m", "o"), 25, { label: true });
+    // players.p3.control.player = players.p3;
+    // players.p3.play(scene);
+    // players.p3.savePosRespawn();
+    // players.p4 = new Player("P4", null, new Control("8", "6", "5", "4", "2", "9"), 25, { label: true });
+    // players.p4.control.player = players.p4;
+    // players.p4.play(scene);
+    // players.p4.savePosRespawn();
+
+    for (const player of Object.keys(players)) {
+        if (players[player] != null)
+            players[player].play(scene);
+    }
     //positioning cameras
     cameras.default.cam = new THREE.PerspectiveCamera(45, canvas.container.clientWidth / canvas.container.clientHeight, 0.1, 10000);
     cameras.default.cam.position.set(0, 1550, 3500);
     cameras.default.cam.lookAt(new THREE.Vector3(0, 0, 0));
 
-    //camera2
-    cameras.camera2.cam = new THREE.PerspectiveCamera(45, canvas.container.clientWidth / canvas.container.clientHeight, 0.1, 1000);
-    cameras.camera2.cam.position.set(0, 20, 100);
-    cameras.camera2.cam.lookAt(players.p1.element.position);
+    // //camera2
+    // cameras.camera2.cam = new THREE.PerspectiveCamera(45, canvas.container.clientWidth / canvas.container.clientHeight, 0.1, 1000);
+    // cameras.camera2.cam.position.set(0, 20, 100);
+    // cameras.camera2.cam.lookAt(players.p1.element.position);
 
-    //Camera3
-    cameras.camera3.cam = new THREE.PerspectiveCamera(45, canvas.container.clientWidth / canvas.container.clientHeight, 0.1, 1000);
-    cameras.camera3.cam.position.set(new THREE.Vector3(0, 0, 0));
-    cameras.camera3.cam.lookAt(players.p1.element.position);
+    // //Camera3
+    // cameras.camera3.cam = new THREE.PerspectiveCamera(45, canvas.container.clientWidth / canvas.container.clientHeight, 0.1, 1000);
+    // cameras.camera3.cam.position.set(new THREE.Vector3(0, 0, 0));
+    // cameras.camera3.cam.lookAt(players.p1.element.position);
 
-    //Camera4
-    cameras.camera4.cam = new THREE.PerspectiveCamera(45, canvas.container.clientWidth / canvas.container.clientHeight, 0.1, 1000);
-    cameras.camera4.cam.position.set(0, 100, 50);
-    cameras.camera4.cam.lookAt(new THREE.Vector3(0, 0, 0));
+    // //Camera4
+    // cameras.camera4.cam = new THREE.PerspectiveCamera(45, canvas.container.clientWidth / canvas.container.clientHeight, 0.1, 1000);
+    // cameras.camera4.cam.position.set(0, 100, 50);
+    // cameras.camera4.cam.lookAt(new THREE.Vector3(0, 0, 0));
 
-    //Camera5
-    cameras.camera5.cam = new THREE.PerspectiveCamera(45, canvas.container.clientWidth / canvas.container.clientHeight, 0.1, 1000);
-    cameras.camera5.cam.position.set(100, 00, 100);
-    cameras.camera5.cam.lookAt(new THREE.Vector3(0, 0, 0));
+    // //Camera5
+    // cameras.camera5.cam = new THREE.PerspectiveCamera(45, canvas.container.clientWidth / canvas.container.clientHeight, 0.1, 1000);
+    // cameras.camera5.cam.position.set(100, 00, 100);
+    // cameras.camera5.cam.lookAt(new THREE.Vector3(0, 0, 0));
 
     //Setting up current default camera as current camera
     cameras.current.cam = cameras.default.cam;
@@ -1408,9 +1411,12 @@ function mayorPuntaje() {
     var name = null;
     var max = 0;
     for (const player of Object.keys(players)) {
-        if (players[player].score > max) {
-            max = players[player].score;
-            name = players[player].name;
+
+        if (players[player] != null) {
+            if (players[player].score > max) {
+                max = players[player].score;
+                name = players[player].name;
+            }
         }
     }
     console.log(`${name} ha ganado la partida`);

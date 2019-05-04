@@ -172,10 +172,7 @@ class Control {
                         createExplode(x, y, z - (50 * i));
 
                     }
-                    let bombSound = new Sound(["./assets/songs/Bomb.mp3"], 15, scene, {
-                        debug: true,
-                        position: { x: 50, y: 0, z: 0 }
-                    });
+                    let bombSound = new Sound(["./assets/songs/Bomb.mp3"]);
                     bombSound.play();
 
                 };
@@ -186,8 +183,8 @@ class Control {
 
                 let createExplode = (x, y, z) => {
                     var c2 = 0x50bdff;
-                    var sphere = new THREE.SphereGeometry(15);
-                    var material = new THREE.MeshBasicMaterial({ color: c2, opacity: 1, transparent: true })
+                    var sphere = new THREE.SphereGeometry(25);
+                    var material = new THREE.MeshBasicMaterial({ opacity: 1, transparent: true, map: THREE.ImageUtils.loadTexture('assets/personajes/flame.png') })
                     var explode = new THREE.Mesh(sphere, material);
                     explode.position.x = x;
                     explode.position.y = y;
@@ -198,7 +195,7 @@ class Control {
                     //     material.opacity -= 0.1;
                     // }
                     // disminuirLuz(light);
-                    TweenLite.to(explode.material, 1.5, { opacity: 0 });
+                    TweenLite.to(explode.material, 2, { opacity: 0 });
                     // TweenLite.to(explode.light.intensity, 1, { intensity: 0.0 });
                     setTimeout(disappearBoom, 2000, explode);
                     // return explode;
@@ -218,10 +215,7 @@ class Control {
             if (!this.isJumping && !this.isInAir) {
                 this.isJumping = true;
                 this.element.position.y += this.jumpForce;
-                let jump = new Sound(["./assets/songs/jump.wav"], 15, scene, {
-                    debug: true,
-                    position: { x: 50, y: 0, z: 0 }
-                });
+                let jump = new Sound(["./assets/songs/jump.wav"]);
                 jump.play();
             }
         }
@@ -344,6 +338,8 @@ document.onkeydown = (e) => {
             case elControl.placeBomb:
                 elControl.pressBomb();
                 break;
+            default:
+                break;
         }
 
     }
@@ -378,6 +374,8 @@ document.onkeyup = (e) => {
                 break;
             case elControl.placeBomb:
                 elControl.releasePlaceBomb();
+                break;
+            default:
                 break;
         }
     }

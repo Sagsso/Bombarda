@@ -166,7 +166,7 @@ body{
 
 .regresar{
     position: absolute;
-    top: 500px; left: 800px; 
+    top: 80%; left: 800px; 
     cursor: pointer;
 }
 
@@ -291,7 +291,6 @@ body{
 }
 #contenedor{
     /* display: flex; */
-    
     top:5%;
     left:50%;
 }
@@ -301,4 +300,35 @@ body{
 	font-family: Courier,sans-serif;
 	color: #363431;
 }
+.playersContainer{
+ margin-top: 80px;
+}
+
+.box {
+    /* align-items: center; */
+    margin-left: 10%;
+    margin-bottom: 25px;
+    width:40%;
+    /* height:50%; */
+    /* left:50%; */
+    display: flex;
+    justify-content: space-between;
+    
+}
+.box div{
+
+    font-size: 100%;
+    color: white;
+    font-weight: bold;
+    /* background-image: url("../assets/textures/block.png"); */
+    width:50%;
+    height:50%;
+    cursor: pointer;
+    display: block;
+}
+
+
+
+
+
 
