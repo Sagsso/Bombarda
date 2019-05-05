@@ -471,20 +471,17 @@ body{
     cursor: pointer;
     display: block;
 }
-.box div img :checked {
+/* .box div :hover img {
 
     width:120%;
     height:120%;
     cursor: pointer;
-    display: block;
+    display: block; */
+/* } */
+.box div img:active {
+
+    opacity: 0.5;
 }
-/* .box div img:active {
-
-    width:120%;
-    height:120%;
-    cursor: pointer;
-    display: block;
-} */
 
 
 

@@ -201,6 +201,10 @@ let pushSnitch = () => {
     collidableList.push(blockSnitch);
     blockSnitch.add(snitch);
     scene.add(blockSnitch);
+
+    soundSnitch = new Sound(["./assets/songs/powerup.wav"]
+    );
+    soundSnitch.play();
 }
 
 /**
@@ -249,7 +253,7 @@ function initScene() {
     }
     //positioning cameras
     cameras.default.cam = new THREE.PerspectiveCamera(45, canvas.container.clientWidth / canvas.container.clientHeight, 0.1, 10000);
-    cameras.default.cam.position.set(0, 1550, 3500);
+    cameras.default.cam.position.set(0, 3000, 2500);
     cameras.default.cam.lookAt(new THREE.Vector3(0, 0, 0));
 
     // //camera2
