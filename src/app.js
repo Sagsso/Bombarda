@@ -3,26 +3,65 @@
  */
 
 
-var centesimas = 0;
-var segundos = 0;
-var minutos = 0;
-var horas = 0;
+centesimas = 0;
+segundos = 0;
+minutos = 0;
+horas = 0;
+var cronos;
+var tiempo;
+function init() {
+    cronos = setInterval(function () { timer() }, 1000);
+}
+function timer() {
+    seconds = document.getElementById('Segundos');
+    minutes = document.getElementById('Minutos');
+    tiempo = parseInt(seconds.value);
+    if (minutes.value != 3) {
+        if (tiempo == 59) {
+            seconds.innerHTML = ":00";
+            seconds.value = "0";
+            minutes.innerHTML = "0" + (parseInt(minutes.value) + 1);
+            minutes.value = parseInt(minutes.value) + 1;
+        } else {
+            seconds.value = eval(tiempo + 1);
+            if (seconds.value < 10) {
+                seconds.innerHTML = ":0" + seconds.value;
+            } else {
+                seconds.innerHTML = ":" + seconds.value;
+            }
+        }
+    }
+}
 
-// minutosDiv = document.createElement("div");
-// minutosDiv.id = "Minutos";
-// minutosDiv.classList = "reloj";
-// minutosDiv.innerHTML = "00";
+minutosDiv = document.createElement("div");
+minutosDiv.value = "0";
+minutosDiv.id = "Minutos";
+minutosDiv.classList = "reloj";
+minutosDiv.innerHTML = "00";
 
-// segundosDiv = document.createElement("div");
-// segundosDiv.id = "Segundos";
-// segundosDiv.classList = "reloj";
-// segundosDiv.innerHTML = ":00";
+segundosDiv = document.createElement("div");
+segundosDiv.value = "0";
+segundosDiv.id = "Segundos";
+segundosDiv.classList = "reloj";
+segundosDiv.innerHTML = ":00";
 
-// let contenedor = document.querySelector(".contenedor");
-// contenedor.appendChild(minutosDiv);
-// contenedor.appendChild(segundosDiv);
-function inicio() {
-    control = setInterval(cronometro, 10);
+// centesimasDiv = document.createElement("div");
+// centesimasDiv.id = "Centesimas";
+// centesimasDiv.classList = "reloj";
+// centesimasDiv.innerHTML = ":00";
+
+let contenedor = document.querySelector(".contenedor");
+contenedor.appendChild(minutosDiv);
+contenedor.appendChild(segundosDiv);
+// contenedor.appendChild(centesimasDiv);
+
+volume = 0.5;
+
+function changeVolume() {
+    var volu3 = document.getElementById('myRange');
+    var x = volu3.value;
+    volume = x;
+    console.log(volume);
 }
 // function parar() {
 //     clearInterval(control);
@@ -48,7 +87,7 @@ function cronometro() {
     if (centesimas < 99) {
         centesimas++;
         if (centesimas < 10) { centesimas = "0" + centesimas }
-        // Centesimas.innerHTML = ":" + centesimas;
+        Centesimas.innerHTML = ":" + centesimas;
     }
     if (centesimas == 99) {
         centesimas = -1;
@@ -120,7 +159,49 @@ let webGLStart = () => {
     window.onresize = onWindowResize;
     lastTime = Date.now();
     animateScene();
+    let slider = document.querySelector(".slidecontainer");
+    slider.style.display = (slider.style.display != "block") ? "block" : "none";
+    let contenedor = document.querySelector(".contenedor");
+    contenedor.style.display = (contenedor.style.display != "flex") ? "flex" : "none";
+    // inicio();
+
+    setTimeout(init, 12000);
+    setTimeout(function () {
+        let popup = document.querySelector(".overlay");
+        popup.style.display = (popup.style.display != "none") ? "none" : "block";
+        setTimeout(mayorPuntaje, 180000);
+        setTimeout(pushSnitch, 120000);
+
+    }, 12000);
 };
+
+let pushSnitch = () => {
+
+
+    var blockSnitch = new THREE.Mesh(
+        new THREE.BoxGeometry(50, 50, 50),
+        new THREE.MeshBasicMaterial({ color: 0xfffce8, wireframe: false, transparent: true, opacity: 0 })
+    );
+    blockSnitch.position.set(0, 225, 0)
+    blockSnitch.name = "Snitch";
+    var snitch = new THREE.Object3D();
+    loadOBJWithMTL("./assets/Models/", "S01.obj", "S01.mtl", (obj) => {
+
+        obj.position.set(0, 0, 9);
+        obj.rotateX(-1.5708)
+        // obj.scale.set(25, 25, 25);
+        obj.castShadow = true;
+        obj.receiveShadow = true;
+        // obj.material.color = 0x0000ff;
+        // obj.rotateY(1.5708)
+        // blockSnitch.add(obj);
+        snitch.copy(obj);
+    })
+    snitch.position.copy(blockSnitch.position);
+    collidableList.push(blockSnitch);
+    blockSnitch.add(snitch);
+    scene.add(blockSnitch);
+}
 
 /**
  * Here we can setup all our scene noobsters
@@ -134,7 +215,8 @@ function initScene() {
      * SETTING UP CORE THREEJS APP ELEMENTS (Scene, Cameras, Renderer)
      * */
     scene = new THREE.Scene();
-
+    backgroundSound2 = new Sound(["./assets/songs/backgroundSound2.mp3"]
+    );
 
     renderer = new THREE.WebGLRenderer({ canvas: canvas.element });
     renderer.setSize(canvas.container.clientWidth, canvas.container.clientHeight);
@@ -225,34 +307,7 @@ function initScene() {
     // scene.add(new THREE.SpotLightHelper(spotLight, 1));
     initObjects();
     //Modelo Snitch
-    let pushSnitch = () => {
 
-
-        var blockSnitch = new THREE.Mesh(
-            new THREE.BoxGeometry(50, 50, 50),
-            new THREE.MeshBasicMaterial({ color: 0xfffce8, wireframe: false, transparent: true, opacity: 0 })
-        );
-        blockSnitch.position.set(0, 225, 0)
-        blockSnitch.name = "Snitch";
-        var snitch = new THREE.Object3D();
-        loadOBJWithMTL("./assets/Models/", "S01.obj", "S01.mtl", (obj) => {
-
-            obj.position.set(0, 0, 9);
-            obj.rotateX(-1.5708)
-            // obj.scale.set(25, 25, 25);
-            obj.castShadow = true;
-            obj.receiveShadow = true;
-            // obj.material.color = 0x0000ff;
-            // obj.rotateY(1.5708)
-            // blockSnitch.add(obj);
-            snitch.copy(obj);
-        })
-        snitch.position.copy(blockSnitch.position);
-        collidableList.push(blockSnitch);
-        blockSnitch.add(snitch);
-        scene.add(blockSnitch);
-    }
-    setTimeout(pushSnitch, 200000);
 
     //UV PERSONAJES
 
@@ -893,6 +948,37 @@ function initScene() {
     cone4.position.z = -1480;
     cone4.position.y = 115;
     scene.add(cone4);
+    //Torre Clone Central 1 
+
+    var cone5 = cone.clone();
+    cone5.position.x = -350;
+    cone5.position.z = -350;
+    cone5.position.y = 360;
+    scene.add(cone5);
+
+    //Torre Clone Central 2
+
+    var cone6 = cone.clone();
+    cone6.position.x = -350;
+    cone6.position.z = 350;
+    cone6.position.y = 360;
+    scene.add(cone6);
+
+    //Torre Clone Central 3
+
+    var cone7 = cone2.clone();
+    cone7.position.x = 350;
+    cone7.position.z = -350;
+    cone7.position.y = 360;
+    scene.add(cone7);
+
+    //Torre Clone Central 4
+
+    var cone8 = cone2.clone();
+    cone8.position.x = 350;
+    cone8.position.z = 350;
+    cone8.position.y = 360;
+    scene.add(cone8);
 
 
     //Plataformas de elevación
@@ -932,7 +1018,7 @@ function initScene() {
 
 
     elevacion = new THREE.Mesh(geometriaPlatformE, matPlatformE);
-    elevacion.position.set(800, 20, 0);
+    elevacion.position.set(800, 5, 0);
     elevacion.rotation.y += 90 * Math.PI / 180;
     elevacion.name = "plataforma1";
     elevacion.isInUse = false;
@@ -944,7 +1030,7 @@ function initScene() {
     elevacion2.rotation.y += 180 * Math.PI / 180;
     elevacion2.name = "plataforma2";
     elevacion2.isInUse = false;
-    elevacion2.position.set(-800, 20, 0);
+    elevacion2.position.set(-800, 5, 0);
     collidableList.push(elevacion2);
     scene.add(elevacion2);
 
@@ -984,7 +1070,7 @@ function initScene() {
 
 
     elevacion3 = new THREE.Mesh(geometriaPlatformE2, matPlatformE2);
-    elevacion3.position.set(0, 20, 800);
+    elevacion3.position.set(0, 5, 800);
     elevacion3.name = "plataforma3";
     elevacion3.isInUse = false;
     scene.add(elevacion3);
@@ -995,7 +1081,7 @@ function initScene() {
     elevacion4.name = "plataforma4";
     elevacion4.rotation.y += 180 * Math.PI / 180;
     elevacion4.isInUse = false;
-    elevacion4.position.set(0, 20, -800);
+    elevacion4.position.set(0, 5, -800);
     collidableList.push(elevacion4);
     scene.add(elevacion4);
 
@@ -1131,6 +1217,8 @@ function initScene() {
 
 
 }
+
+
 
 /**
  * Function to add all objects, lights (except for the ambienlight) and stuff to scene
@@ -1384,12 +1472,9 @@ function initObjects() {
         inicioZ += 50;
     }
 
-    backgroundSound2 = new Sound(["./assets/songs/backgroundSound2.mp3"], 15, scene, {
-        debug: true,
-        position: { x: 50, y: 0, z: 0 }
-    });
+
     backgroundSound2.play();
-    setTimeout(mayorPuntaje, 300000);
+
 
 }
 
@@ -1398,6 +1483,9 @@ function validateWin() {
         if (players[player] != null) {
             if (players[player].score >= 1000) {
                 console.log(`${players[player].name} ha ganado la partida`);
+                soundWin = new Sound(["./assets/songs/win.wav"]
+                );
+                soundWin.play();
                 for (const playerDelete of Object.keys(players)) {
                     scene.remove(players[playerDelete].element);
                 }
@@ -1419,7 +1507,16 @@ function mayorPuntaje() {
             }
         }
     }
-    console.log(`${name} ha ganado la partida`);
+    var strGanador = `¡${name} ha ganado la partida con ${max} puntos!`
+    console.log(strGanador);
+    let overlayWin = document.querySelector(".overlayWin");
+    overlayWin.style.display = (overlayWin.style.display != "block") ? "block" : "none";
+    let popupWin = document.querySelector(".popupWin > h2");
+    popupWin.innerHTML = strGanador;
+
+    soundWin = new Sound(["./assets/songs/win.wav"]);
+    soundWin.play();
+
 }
 
 /**
@@ -1438,6 +1535,12 @@ function animateScene() {
  * over again.
  */
 function updateScene() {
+
+    // if (minutos != 3) {
+    //     cronometro();
+    // }
+    changeVolume();
+    backgroundSound2.update(volume)
     lastTime = Date.now();
     validateWin();
     //Updating camera view by control inputs
@@ -1449,7 +1552,118 @@ function updateScene() {
     // mySound3D2.update(players.p1.element);
     // mySound3D3.update(players.p1.element);
     // mySound3D4.update(players.p1.element);
+    document.onkeydown = (e) => {
+        // mySound3D.play();
+        // mySound3D2.play();
+        // mySound3D3.play();
+        // mySound3D4.play();
 
+        //cámara default
+        if (e.key == "1") {
+            console.log('Camera default puesta');
+            console.log(cameras.default.cam.position);
+            resetIsCurrent(cameras);//Aquí todas las cámaras tiene isCurren = false;
+            cameras.default.isCurrent = true;//Aquí la default isCurrent
+            cameras.current.cam = cameras.default.cam;
+            cameraControl = new THREE.OrbitControls(cameras.current.cam, renderer.domElement);
+        }
+        // if (e.key == "2") {
+        //     console.log('Camera camera2 puesta');
+        //     cameras.current.cam = cameras.camera2.cam;//Aquí todas las cámaras tiene isCurren = false;
+        //     resetIsCurrent(cameras);//Aquí la cámara 2 es la incurrent
+        //     cameras.camera2.isCurrent = true;
+        //     cameraControl = new THREE.OrbitControls(cameras.current.cam, renderer.domElement);
+        // }
+        // if (e.key == "3") {
+        //     console.log('Camera camera3 puesta');
+        //     cameras.current.cam = cameras.camera3.cam;//Aquí todas las cámaras tiene isCurren = false;
+        //     resetIsCurrent(cameras);//Aquí la cámara 3 es la incurrent
+        //     cameras.camera3.isCurrent = true;
+        //     cameraControl = new THREE.OrbitControls(cameras.current.cam, renderer.domElement);
+        // }
+        // if (e.key == "4") {
+        //     console.log('Camera camera4 puesta');
+        //     cameras.current.cam = cameras.camera4.cam;//Aquí todas las cámaras tiene isCurren = false;
+        //     resetIsCurrent(cameras);//Aquí la cámara 3 es la incurrent
+        //     cameras.camera4.isCurrent = true;
+        //     cameraControl = new THREE.OrbitControls(cameras.current.cam, renderer.domElement);
+        // }
+        // if (e.key == "5") {
+        //     console.log('Camera camera5 puesta');
+        //     cameras.current.cam = cameras.camera5.cam;//Aquí todas las cámaras tiene isCurren = false;
+        //     resetIsCurrent(cameras);//Aquí la cámara 3 es la incurrent
+        //     cameras.camera5.isCurrent = true;
+        //     cameraControl = new THREE.OrbitControls(cameras.current.cam, renderer.domElement);
+        // }
+
+        for (let i = 0; i < Object.keys(players).length; i++) {
+            let key = Object.keys(players)[i];
+            if (players[key] == null) { return false; }
+            let elControl = players[key]["control"];
+            //console.log(`Tecla presionada: ${e.key} Tecla up de este jugador ${elControl.up}`)
+            switch (e.key) {
+                case elControl.up:
+                    elControl.pressUp();
+                    break;
+                case elControl.right:
+                    elControl.pressRight();
+                    break;
+                case elControl.down:
+                    elControl.pressDown();
+                    break;
+                case elControl.left:
+                    elControl.pressLeft();
+                    break;
+                case elControl.jump:
+                    elControl.pressJump();
+                    break;
+                case elControl.placeBomb:
+                    elControl.pressBomb();
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+
+
+    }
+
+    document.onkeyup = (e) => {
+        //console.log(Object.keys(players));
+        for (let i = 0; i < Object.keys(players).length; i++) {
+
+            let key = Object.keys(players)[i];
+            if (players[key] == null) { return false; }
+            let elControl = players[key]["control"];
+
+            switch (e.key) {
+                case elControl.up:
+                    elControl.releaseUp();
+                    break;
+                case elControl.right:
+                    elControl.releaseRight();
+                    break;
+                case elControl.down:
+                    elControl.releaseDown();
+                    break;
+                case elControl.left:
+                    elControl.releaseLeft();
+                    break;
+                case elControl.jump:
+                    elControl.releaseJump();
+                    break;
+                case elControl.placeBomb:
+                    elControl.releasePlaceBomb();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
+    }
     //Player controls
     for (const player of Object.keys(players)) {
         if (players[player] != null) {
@@ -1457,16 +1671,16 @@ function updateScene() {
             players[player].collidableBox.update(players[player]);
         }
     }
-    if (elevacion.position.y > 2 && !elevacion.isInUse) {
+    if (elevacion.position.y >= 6.5 && !elevacion.isInUse) {
         elevacion.position.y -= 1 / 2;
     }
-    if (elevacion2.position.y > 2 && !elevacion2.isInUse) {
+    if (elevacion2.position.y > 6.5 && !elevacion2.isInUse) {
         elevacion2.position.y -= 1 / 2;
     }
-    if (elevacion3.position.y > 2 && !elevacion3.isInUse) {
+    if (elevacion3.position.y > 6.5 && !elevacion3.isInUse) {
         elevacion3.position.y -= 1 / 2;
     }
-    if (elevacion4.position.y > 2 && !elevacion4.isInUse) {
+    if (elevacion4.position.y > 6.5 && !elevacion4.isInUse) {
         elevacion4.position.y -= 1 / 2;
     }
 

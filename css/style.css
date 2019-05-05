@@ -10,7 +10,85 @@ body{
     color: #2c3e50;
     overflow-y: hidden;
 }
+.overlayWin {
+  position: absolute;
+  top: 35%;
+  bottom: 0;
+  left: 25%;
+  right: 0;
+  background: rgba(0, 0, 0, 0.4);
+  transition: opacity 300ms;
+  /* visibility: hidden; */
+  width: 50vw;
+  height: 10vw;
+  opacity: 1;
+  display: none;
+  border-radius: 15px;
+  border: 1px;
+  border-color: white;
+}
 
+.popupWin {
+  margin: 43px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 40vw;
+  position: relative;
+  transition: all 5s ease-in-out; 
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+
+}
+.popupWin h2 {
+   margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+  align-items: center;
+}
+.overlay {
+  position: fixed;
+  top: 35%;
+  bottom: 0;
+  left: 25%;
+  right: 0;
+  background: rgba(0, 0, 0, 0.4);
+  transition: opacity 300ms;
+  /* visibility: hidden; */
+  width: 50vw;
+  height: 10vw;
+  opacity: 1;
+  display: none;
+  border-radius: 15px;
+  border: 1px;
+  border-color: white;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 43px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 40vw;
+  position: relative;
+  transition: all 5s ease-in-out; 
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+  align-items: center;
+}
 #app{
     width: 100vw;
     height: 100vh;
@@ -73,12 +151,28 @@ body{
 }
 
 #home .title{
+    /* animation-name: fontGrowth;
+    animation-duration: 1s; */
     margin-top: 20vh;
     font-family: HARRYP;
     font-size: 18vw;
     color: rgb(0, 0, 0);
-    margin-bottom: 4vh;
+    /* margin-bottom: 4vh; */
+    
     text-shadow: 10px 2px rgba(0, 0, 0, 0.288);
+}
+@keyframes fontGrowth {
+    from {font-size: 0vw;}
+    to {font-size: 18vw;}
+  }
+#home .title2{
+    margin-top: 0;
+    margin-bottom: 2vh;
+    font-family: HARRYP;
+    font-size: 4vw;
+    color: white;
+    margin-bottom: 4vh;
+    text-shadow: 3px 3px rgba(0, 0, 0, 0.7);
 }
 
 @keyframes fontGrowth {
@@ -96,14 +190,14 @@ body{
 }
 
 .start-btn{
-    font-family: Motorblock;
+    font-family: College;
     text-align: center;
 	display: inline-block;
 	margin:5px;
     padding: 10px 10px 10px 10px ;
-    background-color: lightgray;
+    background-color: #2c3e50;
     text-shadow: -1px -1px black, 1px 1px white;
-    color: rgb(0, 0, 0);
+    color: white;
     -webkit-border-radius: 7px;
 	-moz-border-radius: 7px;
 	-o-border-radius: 7px;
@@ -111,6 +205,26 @@ body{
     box-shadow: .2em.2em rgb(0, 0, 0); 
     cursor: pointer;
     font-size: 1.8vw;
+    width: 9vw;
+}
+.start-btn:active{
+    font-family: College;
+    text-align: center;
+	display: inline-block;
+	margin:5px;
+	margin-top:10px;
+    padding: 10px 10px 10px 10px ;
+    background-color: #2c3e50;
+    text-shadow: -1px -1px black, 1px 1px white;
+    color: white;
+    -webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	-o-border-radius: 7px;
+	border-radius: 50px;
+    box-shadow: .2em.2em rgb(0, 0, 0); 
+    cursor: pointer;
+    font-size: 1.8vw;
+    width: 9vw;
 }
 
 .config-btn{
@@ -135,8 +249,10 @@ body{
     font-family: College;
     text-align: center;
 	display: inline-block;
-	margin:5px;
-    padding: 85px 10px 10px 130px;
+    
+    margin-top:150px;
+    margin-left:50px;
+    padding: 0px 10px 0px 130px;
     color: rgb(0, 0, 0);
     cursor: pointer;
     font-size: 3.0vw;
@@ -166,8 +282,15 @@ body{
 
 .regresar{
     position: absolute;
-    top: 80%; left: 800px; 
+    top: 80%; left: 200px; 
     cursor: pointer;
+}
+
+#play{
+    position: absolute;
+    top: 80vh; left: 45%; 
+    cursor: pointer;
+  
 }
 
 #options{
@@ -210,21 +333,34 @@ body{
 * {box-sizing: border-box;}
 
 .wrapper {
-  border: 2px solid #f76707;
-  border-radius: 5px;
+  border: 30px;
+  border-radius: 10px;
   background-color: #fff4e6;
+  
 }
 
-.wrapper > div {
-  border: 2px solid #ffa94d;
-  border-radius: 5px;
-  background-color: #ffd8a8;
-  padding: 1em;
-  color: #d9480f;
+.wrapper .playerUI {
+    background-image: url("../assets/background/Gui.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100px !important;
+    width: 180px !important;
+
 }
 
 .playerUI{
     font-family: HARRYP;
+    font-size: 200%;
+
+}
+.playerUI .name{
+    font-family: HARRYP;
+    color:#00014b;
+    margin-top: 7px;
+}
+.playerUI .vidas{
+    margin-top: 20px;
+    margin-left: 80px;
 }
 #P1{
     display: flex;
@@ -233,7 +369,6 @@ body{
     position: absolute;
     left: 5%;
     top: 20%;
-    font-size: 200%;
     color: white;
 }
 #P2{
@@ -243,7 +378,6 @@ body{
     position: absolute;
     left: 5%;
     top: 60%;
-    font-size: 200%;
     color: white;
 }
 #P3{
@@ -253,7 +387,6 @@ body{
     position: absolute;
     right: 5%;
     top: 20%;
-    font-size: 200%;
     color: white;
 }
 #P4{
@@ -263,7 +396,6 @@ body{
     position: absolute;
     right: 5%;
     top: 60%;
-    font-size: 200%;
     color: white;
 }
 
@@ -289,10 +421,15 @@ body{
     flex: 6;
     margin-left: 4px;
 }
-#contenedor{
+.contenedor{
+    display: none;
     /* display: flex; */
+    position: absolute;
     top:5%;
-    left:50%;
+    left:45%;
+}
+#Minutos, #Segundos, #Centesimas {
+    color: white;
 }
 .reloj{
 	/* float: none; */
@@ -303,12 +440,20 @@ body{
 .playersContainer{
  margin-top: 80px;
 }
+.controls{
+ width: 3vw;
+  font-size: 40px;
+    font-weight: bold;
+    font-family: HARRYP;
+    border-radius: 5px;
+    text-align: center;
+}
 
 .box {
     /* align-items: center; */
     margin-left: 10%;
     margin-bottom: 25px;
-    width:40%;
+    width:60%;
     /* height:50%; */
     /* left:50%; */
     display: flex;
@@ -321,14 +466,135 @@ body{
     color: white;
     font-weight: bold;
     /* background-image: url("../assets/textures/block.png"); */
-    width:50%;
-    height:50%;
+    /* width:50%;
+    height:50%; */
     cursor: pointer;
     display: block;
 }
+.box div img :checked {
+
+    width:120%;
+    height:120%;
+    cursor: pointer;
+    display: block;
+}
+/* .box div img:active {
+
+    width:120%;
+    height:120%;
+    cursor: pointer;
+    display: block;
+} */
 
 
 
+.boxName{
+    font-size: 40px;
+    font-weight: bold;
+    font-family: HARRYP;
+    border-radius: 5px;
+    width: 150px;
+    text-align: center;
+}
+
+ .slidecontainer {
+            width: 15%;
+            position: absolute;
+            top: 20px;
+            left: 150px;
+            display: none;
+        }
+
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 25px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .5s;
+        }
+
+        .slider:hover {
+            opacity: 1;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            background: rgb(0, 0, 0);
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            background: #4CAF50;
+            cursor: pointer;
+        }
 
 
+
+/* Default and colorized buttons */
+.button {
+position: relative;
+padding: 20px 40px;
+margin: 10px 20px;
+font-size: 39px;
+text-align: center;
+text-decoration: none;
+background-color: #9c9c9c;
+color: #fff;
+border-radius: 7px;
+box-shadow: 0px 7px 1px #34495e;
+cursor:pointer;
+}
+
+.blue {
+background-color: #34495e;
+box-shadow: 0px 9px 1px #0082b5;
+}
+
+/* Animation for buttons */
+.animation {
+-webkit-transition: 0.2s all;
+-moz-transition: 0.2s all;
+-o-transition: 0.2s all;
+-transition: 0.2s all;
+}
+
+.button:hover {
+transform: translateY(4px);
+-webkit-transform: translateY(4px);
+box-shadow: 0px 5px 1px #6e6e6e;
+}
+
+.button:active {
+transform: translateY(8px);
+-webkit-transform: translateY(8px);
+box-shadow: 0px 1px 1px #6e6e6e;
+}
+
+.blue:hover {
+transform: translateY(4px);
+-webkit-transform: translateY(4px);
+box-shadow: 0px 5px 1px #0082b5;
+}
+
+.blue:active {
+transform: translateY(8px);
+-webkit-transform: translateY(8px);
+box-shadow: 0px 1px 1px #0082b5;
+}
+
+
+/* optional reset for presentation */
+/* * {
+  font-family: Arial;
+  text-decoration: none;
+  font-size: 20px;
+} */
 

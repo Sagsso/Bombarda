@@ -35,12 +35,24 @@ class CollidableBomb {
 
     collideIn(playerOwner) {
         if (playerOwner.element.position.x == this.mesh.position.x && playerOwner.element.position.z == this.mesh.position.z) {
-            if (playerOwner.vidas >= 1) {
-                playerOwner.vidas -= 1;
-                playerOwner.element.position.set(playerOwner.position.x, playerOwner.position.y, playerOwner.position.z);
-            } else {
-                scene.remove(playerOwner.element);
-                playerOwner = null;
+            if (!playerOwner.inmune) {
+                if (playerOwner.vidas >= 2) {
+                    playerOwner.vidas -= 1;
+                    playerOwner.element.position.set(playerOwner.position.x, playerOwner.position.y, playerOwner.position.z);
+                } else if (playerOwner.vidas == 1) {
+                    playerOwner.vidas -= 1;
+                    scene.remove(playerOwner.element);
+                    for (const player of Object.keys(players)) {
+                        if (players[player] != null) {
+                            if (playerOwner == players[player]) {
+                                players[player] = null;
+                            }
+                        }
+                    }
+                } else {
+                    scene.remove(playerOwner.element);
+                    playerOwner = null;
+                }
             }
             let dead = new Sound(["./assets/songs/dead.wav"]);
             let soundDead = () => dead.play();
@@ -89,9 +101,13 @@ function deleteObjects(intersections, playerOwner) {
         for (const player of Object.keys(players)) {
             if (players[player].element == intersections[0].object) {
                 if (!players[player].inmune) {
-                    if (players[player].vidas >= 1) {
+                    if (players[player].vidas >= 2) {
                         players[player].vidas -= 1;
                         players[player].element.position.set(players[player].position.x, players[player].position.y, players[player].position.z);
+                    } else if (players[player].vidas == 1) {
+                        players[player].vidas -= 1;
+                        scene.remove(players[player].element);
+                        players[player] = null;
                     } else {
                         scene.remove(players[player].element);
                         players[player] = null;

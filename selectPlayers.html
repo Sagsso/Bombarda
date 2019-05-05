@@ -27,13 +27,28 @@
 <body background-image: url(C:\xampp\htdocs\CG\Interactive3DApplication\assets\background)>
 
     <div class="wrapper">
+        <div id="popupWin" class="overlayWin">
+            <div class="popupWin">
+                <h2></h2>
+                <input onclick="location='index.html'" type="button" value="Nueva partida"
+                    class="button blue animation">
+            </div>
+        </div>
+        <div id="popup1" class="overlay">
+            <div class="popup">
+                <h2>Por favor espera mientras cargamos el juego</h2>
+                <h2>¡Prepárate, tienes 3 minutos para ganar! </h2>
+            </div>
+        </div>
+        <div class="slidecontainer">
+            <input type="range" min="0" max="1" value="0.5" step="0.1" class="slider" id="myRange">
+        </div>
+        <div class="contenedor"></div>
     </div>
     <div id="config">
 
 
-        <div class="mapas-btn" onclick="gameStart()">Mapas</div>
-        <div class="sonidos-btn" onclick="gameStart()">Sonidos</div>
-        <div class="controles-btn" onclick="gameStart()">Controles</div>
+        <div class="mapas-btn">Personaliza tus controles y personaje</div>
         <div class="playersContainer">
             <div class="box">
                 <div onclick="imgP1=harryImg"><img src="assets/personajes/hp.png" width="60" height="60" />
@@ -43,13 +58,18 @@
                 <div onclick="imgP1=siriusImg"><img src="assets/personajes/sirius.png" width="60" height="60" /></div>
                 <div onclick="imgP1=dementorImg"><img src="assets/personajes/dementor.png" width="60" height="60" />
                 </div>
-                <div onclick="imgP1=voldiImg""><img src=" assets/personajes/hg.png" width="60" height="60" />
+                <div onclick="imgP1=gryfImg""><img src=" assets/personajes/hg.png" width="60" height="60" />
             </div>
-            <div onclick="imgP1=voldiImg"><img src="assets/personajes/sl.png" width="60" height="60" /></div>
-            <div onclick="imgP1=voldiImg"><img src="assets/personajes/hf.png" width="60" height="60" /></div>
-            <div onclick="imgP1=voldiImg"><img src="assets/personajes/rv.png" width="60" height="60" /></div>
-            <input id="name1" type="text" placeholder="Nombre" value="Jugador1">
-            <input onclick="gameStart()" id="play" type="button" placeholder="Nombre">
+            <div onclick="imgP1=slythImg"><img src="assets/personajes/sl.png" width="60" height="60" /></div>
+            <div onclick="imgP1=huffleImg"><img src="assets/personajes/hf.png" width="60" height="60" /></div>
+            <div onclick="imgP1=ravenImg"><img src="assets/personajes/rv.png" width="60" height="60" /></div>
+            <input id="name1" class="boxName" type="text" placeholder="Nombre">
+            <input id="up1" class="controls" type="text" placeholder="up" value="w">
+            <input id="down1" class="controls" type="text" placeholder="down" value="s">
+            <input id="left1" class="controls" type="text" placeholder="left" value="a">
+            <input id="right1" class="controls" type="text" placeholder="right" value="d">
+            <input id="jump1" class="controls" type="text" placeholder="jump" value=" ">
+            <input id="bomb1" class="controls" type="text" placeholder="bomb" value="e">
         </div>
         <div class="box">
             <div onclick="imgP2=harryImg"><img src="assets/personajes/hp.png" width="60" height="60" />
@@ -58,12 +78,18 @@
             </div>
             <div onclick="imgP2=siriusImg"><img src="assets/personajes/sirius.png" width="60" height="60" /></div>
             <div onclick="imgP2=dementorImg"><img src="assets/personajes/dementor.png" width="60" height="60" /></div>
-            <div onclick="crearJugador()"><img src="assets/personajes/hg.png" width="60" height="60" />
+            <div onclick="imgP2=gryfImg"><img src="assets/personajes/hg.png" width="60" height="60" />
             </div>
-            <div onclick="gameStart()"><img src="assets/personajes/sl.png" width="60" height="60" /></div>
-            <div><img src="assets/personajes/hf.png" width="60" height="60" /></div>
-            <div><img src="assets/personajes/rv.png" width="60" height="60" /></div>
-            <input id="name2" type="text" placeholder="Nombre" value="Jugador1">
+            <div onclick="imgP2=slythImg"><img src="assets/personajes/sl.png" width="60" height="60" /></div>
+            <div onclick="imgP2=huffleImg"><img src="assets/personajes/hf.png" width="60" height="60" /></div>
+            <div onclick="imgP2=ravenImg"><img src="assets/personajes/rv.png" width="60" height="60" /></div>
+            <input id="name2" class="boxName" type="text" placeholder="Nombre">
+            <input id="up2" class="controls" type="text" placeholder="up" value="t">
+            <input id="right2" class="controls" type="text" placeholder="right" value="h">
+            <input id="down2" class="controls" type="text" placeholder="down" value="g">
+            <input id="left2" class="controls" type="text" placeholder="left" value="f">
+            <input id="jump2" class="controls" type="text" placeholder="jump" value="b">
+            <input id="bomb2" class="controls" type="text" placeholder="bomb" value="y">
         </div>
         <div class="box">
             <div onclick="imgP3=harryImg"><img src="assets/personajes/hp.png" width="60" height="60" />
@@ -72,12 +98,18 @@
         </div>
         <div onclick="imgP3=siriusImg"><img src="assets/personajes/sirius.png" width="60" height="60" /></div>
         <div onclick="imgP3=dementorImg"><img src="assets/personajes/dementor.png" width="60" height="60" /></div>
-        <div onclick="crearJugador()"><img src="assets/personajes/hg.png" width="60" height="60" />
+        <div onclick="imgP3=gryfImg"><img src="assets/personajes/hg.png" width="60" height="60" />
         </div>
-        <div onclick="gameStart()"><img src="assets/personajes/sl.png" width="60" height="60" /></div>
-        <div><img src="assets/personajes/hf.png" width="60" height="60" /></div>
-        <div><img src="assets/personajes/rv.png" width="60" height="60" /></div>
-        <input id="name3" type="text" placeholder="Nombre" value="Jugador1">
+        <div onclick="imgP3=slythfImg"><img src="assets/personajes/sl.png" width="60" height="60" /></div>
+        <div onclick="imgP3=huffleImg"><img src="assets/personajes/hf.png" width="60" height="60" /></div>
+        <div onclick="imgP3=ravenImg"><img src="assets/personajes/rv.png" width="60" height="60" /></div>
+        <input id="name3" class="boxName" type="text" placeholder="Nombre">
+        <input id="up3" class="controls" type="text" placeholder="up" value="i">
+        <input id="right3" class="controls" type="text" placeholder="right" value="l">
+        <input id="down3" class="controls" type="text" placeholder="down" value="k">
+        <input id="left3" class="controls" type="text" placeholder="left" value="j">
+        <input id="jump3" class="controls" type="text" placeholder="jump" value="m">
+        <input id="bomb3" class="controls" type="text" placeholder="bomb" value="o">
     </div>
     <div class="box">
         <div onclick="imgP4=harryImg"><img src="assets/personajes/hp.png" width="60" height="60" />
@@ -86,19 +118,27 @@
     </div>
     <div onclick="imgP4=siriusImg"><img src="assets/personajes/sirius.png" width="60" height="60" /></div>
     <div onclick="imgP4=dementorImg"><img src="assets/personajes/dementor.png" width="60" height="60" /></div>
-    <div onclick="crearJugador()"><img src="assets/personajes/hg.png" width="60" height="60" />
+    <div onclick="imgP4=gryfImg"><img src="assets/personajes/hg.png" width="60" height="60" />
     </div>
-    <div onclick="gameStart()"><img src="assets/personajes/sl.png" width="60" height="60" /></div>
-    <div><img src="assets/personajes/hf.png" width="60" height="60" /></div>
-    <div><img src="assets/personajes/rv.png" width="60" height="60" /></div>
-    <input id="name4" type="text" placeholder="Nombre" value="Jugador1">
+    <div onclick="imgP4=slythImg"><img src="assets/personajes/sl.png" width="60" height="60" /></div>
+    <div onclick="imgP4=huffleImg"><img src="assets/personajes/hf.png" width="60" height="60" /></div>
+    <div onclick="imgP4=ravenImg"><img src="assets/personajes/rv.png" width="60" height="60" /></div>
+    <input id="name4" class="boxName" type="text" placeholder="Nombre">
+    <input id="up4" class="controls" type="text" placeholder="up" value="8">
+    <input id="right4" class="controls" type="text" placeholder="right" value="6">
+    <input id="down4" class="controls" type="text" placeholder="down" value="5">
+    <input id="left4" class="controls" type="text" placeholder="left" value="4">
+    <input id="jump4" class="controls" type="text" placeholder="jump" value="2">
+    <input id="bomb4" class="controls" type="text" placeholder="bomb" value="9">
     </div>
+
     </div>
 
 
-    <div class=" regresar" onclick="location='index.html'"> <img id="zoom" src="assets/background/regresar.png"
-            width="80" height="70" /></div>
+    <div class=" regresar" onclick="location='index.html'"> <img src="assets/background/regresar.png" width="80"
+            height="70" /></div>
 
+    <div onclick="gameStart()" id="play"><img src="assets/textures/play.png" width="90" height="90" /></div>
 
 
     </div>
@@ -114,16 +154,17 @@
         var siriusImg = "sirius"
         var voldiImg = "voldi"
         var dementorImg = "dementor"
+        var gryfImg = "gryf"
+        var slythImg = "slyth"
+        var huffleImg = "huffle"
+        var ravenImg = "raven"
 
         var imgP1 = null;
         var imgP2 = null;
         var imgP3 = null;
         var imgP4 = null;
 
-        var name1 = document.getElementById("name1").value;
-        var name2 = document.getElementById("name2").value;
-        var name3 = document.getElementById("name3").value;
-        var name4 = document.getElementById("name4").value;
+
         /*window.onload = () => {
             let options = document.querySelector("#options");
             options.onclick = () => {
@@ -139,24 +180,57 @@
             }*/
 
         function crearJugadores() {
-            players.p1 = new Player(name1, "P1", null, new Control(), 25, imgP1, { label: true });
+            var name1 = document.getElementById("name1").value;
+            var name2 = document.getElementById("name2").value;
+            var name3 = document.getElementById("name3").value;
+            var name4 = document.getElementById("name4").value;
+
+            var up1 = document.getElementById("up1").value;
+            var up2 = document.getElementById("up2").value;
+            var up3 = document.getElementById("up3").value;
+            var up4 = document.getElementById("up4").value;
+
+            var down1 = document.getElementById("down1").value;
+            var down2 = document.getElementById("down2").value;
+            var down3 = document.getElementById("down3").value;
+            var down4 = document.getElementById("down4").value;
+
+            var right1 = document.getElementById("right1").value;
+            var right2 = document.getElementById("right2").value;
+            var right3 = document.getElementById("right3").value;
+            var right4 = document.getElementById("right4").value;
+
+            var left1 = document.getElementById("left1").value;
+            var left2 = document.getElementById("left2").value;
+            var left3 = document.getElementById("left3").value;
+            var left4 = document.getElementById("left4").value;
+
+            var jump1 = document.getElementById("jump1").value;
+            var jump2 = document.getElementById("jump2").value;
+            var jump3 = document.getElementById("jump3").value;
+            var jump4 = document.getElementById("jump4").value;
+
+            var bomb1 = document.getElementById("bomb1").value;
+            var bomb2 = document.getElementById("bomb2").value;
+            var bomb3 = document.getElementById("bomb3").value;
+            var bomb4 = document.getElementById("bomb4").value;
+            players.p1 = new Player(name1, "P1", null, new Control(up1, right1, down1, left1, jump1, bomb1), 25, imgP1, { label: true });
             players.p1.control.player = players.p1;
             players.p1.savePosRespawn();
-            console.log(players);
+            console.log(name1);
 
-            players.p2 = new Player(name2, "P2", null, new Control("t", "h", "g", "f", "b", "y"), 25, imgP2, { label: true });
+            players.p2 = new Player(name2, "P2", null, new Control(up2, right2, down2, left2, jump2, bomb2), 25, imgP2, { label: true });
             players.p2.control.player = players.p2;
             players.p2.savePosRespawn();
-            console.log(players);
-
-            players.p3 = new Player(name3, "P3", null, new Control("i", "l", "k", "j", "m", "o"), 25, imgP3, { label: true });
+            console.log(name2);
+            players.p3 = new Player(name3, "P3", null, new Control(up3, right3, down3, left3, jump3, bomb3), 25, imgP3, { label: true });
             players.p3.control.player = players.p3;
             players.p3.savePosRespawn();
-            console.log(players);
-
-            players.p4 = new Player(name4, "P4", null, new Control("8", "6", "5", "4", "2", "9"), 25, imgP4, { label: true });
+            console.log(name3);
+            players.p4 = new Player(name4, "P4", null, new Control(up4, right4, down4, left4, jump4, bomb4), 25, imgP4, { label: true });
             players.p4.control.player = players.p4;
             players.p4.savePosRespawn();
+            console.log(name4);
             console.log(players);
         }
         function gameStart() {
@@ -175,6 +249,8 @@
             }
             let app = document.querySelector("#app");
             app.style.display = (app.style.display != "block") ? "block" : "none";
+            let popup = document.querySelector(".overlay");
+            popup.style.display = (popup.style.display != "block") ? "block" : "none";
             // let options = document.querySelector("#options");
             // options.style.display = (options.style.display != "block") ? "block" : "none";
         }

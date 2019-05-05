@@ -276,6 +276,226 @@ class Player {
                     UV8.Demen[3]
                 ];
             }
+
+            let imgGryffindor = () => {
+                var UV1 = {
+                    Red: [
+                        new THREE.Vector2(0.0, 1.0),
+                        new THREE.Vector2(0.0, 0.5),
+                        new THREE.Vector2(0.22, 0.5),
+                        new THREE.Vector2(0.22, 1.0)
+
+                    ]
+                }
+
+                //Mapeo de las texturas sobre las caras
+                geometry.faceVertexUvs[0] = [];
+                geometry.faceVertexUvs[0][8] = [
+                    UV1.Red[0],
+                    UV1.Red[1],
+                    UV1.Red[3]
+                ];
+                geometry.faceVertexUvs[0][9] = [
+                    UV1.Red[1],
+                    UV1.Red[2],
+                    UV1.Red[3]
+                ];
+                geometry.faceVertexUvs[0][0] = [
+                    UV1.Red[0],
+                    UV1.Red[1],
+                    UV1.Red[3]
+                ];
+                geometry.faceVertexUvs[0][1] = [
+                    UV1.Red[1],
+                    UV1.Red[2],
+                    UV1.Red[3]
+                ];
+                geometry.faceVertexUvs[0][2] = [
+                    UV1.Red[0],
+                    UV1.Red[1],
+                    UV1.Red[3]
+                ];
+                geometry.faceVertexUvs[0][3] = [
+                    UV1.Red[1],
+                    UV1.Red[2],
+                    UV1.Red[3]
+                ];
+                geometry.faceVertexUvs[0][10] = [
+                    UV1.Red[0],
+                    UV1.Red[1],
+                    UV1.Red[3]
+                ];
+                geometry.faceVertexUvs[0][11] = [
+                    UV1.Red[1],
+                    UV1.Red[2],
+                    UV1.Red[3]
+                ];
+            }
+
+            let imgSlytherin = () => {
+                var UV2 = {
+
+                    Green: [
+                        new THREE.Vector2(0.25, 1.0),
+                        new THREE.Vector2(0.25, 0.5),
+                        new THREE.Vector2(0.48, 0.5),
+                        new THREE.Vector2(0.48, 1.0)
+                    ]
+                }
+
+                geometry.faceVertexUvs[0] = [];
+                geometry.faceVertexUvs[0][8] = [
+                    UV2.Green[0],
+                    UV2.Green[1],
+                    UV2.Green[3]
+                ];
+                geometry.faceVertexUvs[0][9] = [
+                    UV2.Green[1],
+                    UV2.Green[2],
+                    UV2.Green[3]
+                ];
+                geometry.faceVertexUvs[0][0] = [
+                    UV2.Green[0],
+                    UV2.Green[1],
+                    UV2.Green[3]
+                ];
+                geometry.faceVertexUvs[0][1] = [
+                    UV2.Green[1],
+                    UV2.Green[2],
+                    UV2.Green[3]
+                ];
+                geometry.faceVertexUvs[0][2] = [
+                    UV2.Green[0],
+                    UV2.Green[1],
+                    UV2.Green[3]
+                ];
+                geometry.faceVertexUvs[0][3] = [
+                    UV2.Green[1],
+                    UV2.Green[2],
+                    UV2.Green[3]
+                ];
+                geometry.faceVertexUvs[0][10] = [
+                    UV2.Green[0],
+                    UV2.Green[1],
+                    UV2.Green[3]
+                ];
+                geometry.faceVertexUvs[0][11] = [
+                    UV2.Green[1],
+                    UV2.Green[2],
+                    UV2.Green[3]
+                ];
+            }
+
+            let imgHufflepuff = () => {
+                var UV3 = {
+
+                    Amarello: [
+                        new THREE.Vector2(0.50, 1.0),
+                        new THREE.Vector2(0.50, 0.5),
+                        new THREE.Vector2(0.75, 0.5),
+                        new THREE.Vector2(0.75, 1.0)
+
+                    ]
+                }
+
+                geometry.faceVertexUvs[0] = [];
+                geometry.faceVertexUvs[0][8] = [
+                    UV3.Amarello[0],
+                    UV3.Amarello[1],
+                    UV3.Amarello[3]
+                ];
+                geometry.faceVertexUvs[0][9] = [
+                    UV3.Amarello[1],
+                    UV3.Amarello[2],
+                    UV3.Amarello[3]
+                ];
+                geometry.faceVertexUvs[0][0] = [
+                    UV3.Amarello[0],
+                    UV3.Amarello[1],
+                    UV3.Amarello[3]
+                ];
+                geometry.faceVertexUvs[0][1] = [
+                    UV3.Amarello[1],
+                    UV3.Amarello[2],
+                    UV3.Amarello[3]
+                ];
+                geometry.faceVertexUvs[0][2] = [
+                    UV3.Amarello[0],
+                    UV3.Amarello[1],
+                    UV3.Amarello[3]
+                ];
+                geometry.faceVertexUvs[0][3] = [
+                    UV3.Amarello[1],
+                    UV3.Amarello[2],
+                    UV3.Amarello[3]
+                ];
+                geometry.faceVertexUvs[0][10] = [
+                    UV3.Amarello[0],
+                    UV3.Amarello[1],
+                    UV3.Amarello[3]
+                ];
+                geometry.faceVertexUvs[0][11] = [
+                    UV3.Amarello[1],
+                    UV3.Amarello[2],
+                    UV3.Amarello[3]
+                ];
+            }
+
+            let imgRavenclaw = () => {
+                var UV4 = {
+                    Blue: [
+                        new THREE.Vector2(0.78, 1.0),
+                        new THREE.Vector2(0.78, 0.5),
+                        new THREE.Vector2(1.0, 0.5),
+                        new THREE.Vector2(1.0, 1.0)
+
+                    ]
+                }
+
+                geometry.faceVertexUvs[0] = [];
+                geometry.faceVertexUvs[0][8] = [
+                    UV4.Blue[0],
+                    UV4.Blue[1],
+                    UV4.Blue[3]
+                ];
+                geometry.faceVertexUvs[0][9] = [
+                    UV4.Blue[1],
+                    UV4.Blue[2],
+                    UV4.Blue[3]
+                ];
+                geometry.faceVertexUvs[0][0] = [
+                    UV4.Blue[0],
+                    UV4.Blue[1],
+                    UV4.Blue[3]
+                ];
+                geometry.faceVertexUvs[0][1] = [
+                    UV4.Blue[1],
+                    UV4.Blue[2],
+                    UV4.Blue[3]
+                ];
+                geometry.faceVertexUvs[0][2] = [
+                    UV4.Blue[0],
+                    UV4.Blue[1],
+                    UV4.Blue[3]
+                ];
+                geometry.faceVertexUvs[0][3] = [
+                    UV4.Blue[1],
+                    UV4.Blue[2],
+                    UV4.Blue[3]
+                ];
+                geometry.faceVertexUvs[0][10] = [
+                    UV4.Blue[0],
+                    UV4.Blue[1],
+                    UV4.Blue[3]
+                ];
+                geometry.faceVertexUvs[0][11] = [
+                    UV4.Blue[1],
+                    UV4.Blue[2],
+                    UV4.Blue[3]
+                ];
+            }
+
+            let img
             var num = 0;
             var creado = false;
             for (const player of Object.keys(players)) {
@@ -295,7 +515,20 @@ class Player {
                                 case "dementor":
                                     imgDementor();
                                     break;
+                                case "gryf":
+                                    imgGryffindor();
+                                    break;
+                                case "slyth":
+                                    imgSlytherin();
+                                    break;
+                                case "huflle":
+                                    imgHufflepuff();
+                                    break;
+                                case "raven":
+                                    imgRavenclaw();
+                                    break;
                                 default:
+                                    imgHP();
                                     break;
                             }
 
@@ -321,7 +554,20 @@ class Player {
                                 case "dementor":
                                     imgDementor();
                                     break;
+                                case "gryf":
+                                    imgGryffindor();
+                                    break;
+                                case "slyth":
+                                    imgSlytherin();
+                                    break;
+                                case "huflle":
+                                    imgHufflepuff();
+                                    break;
+                                case "raven":
+                                    imgRavenclaw();
+                                    break;
                                 default:
+                                    imgHP();
                                     break;
                             }
                             var object1 = new THREE.Mesh(geometry, material);
@@ -346,7 +592,20 @@ class Player {
                                 case "dementor":
                                     imgDementor();
                                     break;
+                                case "gryf":
+                                    imgGryffindor();
+                                    break;
+                                case "slyth":
+                                    imgSlytherin();
+                                    break;
+                                case "huflle":
+                                    imgHufflepuff();
+                                    break;
+                                case "raven":
+                                    imgRavenclaw();
+                                    break;
                                 default:
+                                    imgHP();
                                     break;
                             }
 
@@ -371,7 +630,20 @@ class Player {
                                 case "dementor":
                                     imgDementor();
                                     break;
+                                case "gryf":
+                                    imgGryffindor();
+                                    break;
+                                case "slyth":
+                                    imgSlytherin();
+                                    break;
+                                case "huflle":
+                                    imgHufflepuff();
+                                    break;
+                                case "raven":
+                                    imgRavenclaw();
+                                    break;
                                 default:
+                                    imgHP();
                                     break;
                             }
                             var object1 = new THREE.Mesh(geometry, material);
@@ -424,7 +696,7 @@ class Player {
 
     set score(value) {
         this._score = value;
-        let uiElement = document.querySelector(`#${this.name} .score`);
+        let uiElement = document.querySelector(`#${this.namePlayer} .score`);
         console.log(uiElement)
         if (uiElement != undefined) {
             uiElement.innerHTML = this.score;
@@ -445,6 +717,19 @@ class Player {
         }
     }
 
+    get vidas() {
+        return this._vidas;
+    }
+
+    set vidas(value) {
+        this._vidas = value;
+        let uiElement = document.querySelector(`#${this.namePlayer} .vidas`);
+        console.log(uiElement);
+        if (uiElement != undefined) {
+            uiElement.innerHTML = this.vidas;
+        }
+    }
+
     setUpUI() {
         //wrapper
         let playerUI = document.createElement("div");
@@ -461,6 +746,12 @@ class Player {
         scoreField.classList.add("score");
         scoreField.innerHTML = this.score;
 
+        //Vidas
+        let lifeField = document.createElement("div");
+        lifeField.classList.add("vidas");
+        lifeField.innerHTML = this.vidas;
+
+        playerUI.appendChild(lifeField);
         playerUI.appendChild(playerName);
         playerUI.appendChild(scoreField);
 
